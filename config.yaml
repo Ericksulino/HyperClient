@@ -26,8 +26,8 @@ peers:
 
     # Defines either a path to the tls ca cert file, or the actual cert file
     # contents
-    tls_ca_cert_path: /path/to/tlsca/cert/file/for/peer
-    tls_ca_cert: '<cert contents>'
+    tls_ca_cert_path: ../caliper-workspace/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
+    #tls_ca_cert: '<cert contents>'
 
     # Defines either a path to the client auth cert file, or the actual cert
     # file contents
