@@ -31,13 +31,13 @@ peers:
 
     # Defines either a path to the client auth cert file, or the actual cert
     # file contents
-    client_cert_path: /path/to/client/cert/file/for/peer
+    client_cert_path: ../caliper-workspace/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/signcerts/User1@org1.example.com-cert.pem
     client_cert: '<cert contents>'
 
     # Defines either a path to the client auth key file, or the actual key file
     # contents
-    client_key_path: /path/to/client/key/file/for/peer
-    client_key: '<key contents>'
+    client_key_path: ../caliper-workspace/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/keystore/priv_sk
+    #client_key: '<key contents>'
     
 
 # -----------------------------------------------------------------------------
@@ -89,12 +89,12 @@ users:
 
     # Defines either a path to the cert file for this user, or the actual cert
     # file contents
-    cert_path: ../caliper-workspace/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/keystore/priv_sk
+    cert_path: ../caliper-workspace/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/signcerts/User1@org1.example.com-cert.pem
     #cert: <cert contents>
 
     # Defines either a path to the key file for this user, or the actual key
     # file contents
-    key_path: ../caliper-workspace/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/signcerts/User1@org1.example.com-cert.pem
+    key_path: ../caliper-workspace/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/keystore/priv_sk
     #key: <key contents>
 
 # -----------------------------------------------------------------------------
