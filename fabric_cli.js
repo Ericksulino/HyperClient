@@ -2,8 +2,8 @@ const { Gateway, Wallets } = require('fabric-network');
 const path = require('path');
 
 // Configurações de conexão com a rede
-const ccpPath = path.resolve(__dirname, '..', 'connection.json');
-const walletPath = path.resolve(__dirname, '..', 'wallet');
+const ccpPath = path.resolve(__dirname, 'connection.json');
+//const walletPath = path.resolve(__dirname, '..', 'wallet');
 const userId = 'user1';
 
 async function main() {

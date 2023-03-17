@@ -32,7 +32,7 @@ peers:
     # Defines either a path to the client auth cert file, or the actual cert
     # file contents
     client_cert_path: ../caliper-workspace/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/signcerts/User1@org1.example.com-cert.pem
-    client_cert: '<cert contents>'
+    #client_cert: '<cert contents>'
 
     # Defines either a path to the client auth key file, or the actual key file
     # contents
