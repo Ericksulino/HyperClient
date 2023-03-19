@@ -1,0 +1,14 @@
+{
+    "name": "CLI_Hyperledger",
+    "version": "1.0.0",
+    "description": "Cliente Hyperledger Fabric",
+    "main": "fabric_cli.js",
+    "scripts": {
+        "start": "node fabric_cli.js"
+    },
+    "author": "Ericksulino Moura",
+    "license": "ISC",
+    "dependencies": {
+        "fabric-network": "^2.2.17"
+    }
+}
