@@ -5,6 +5,8 @@ const fs = require('fs');
 // Configurações de conexão com a rede
 const ccpPath = path.resolve(__dirname, 'connection.json');
 const walletPath = path.resolve(__dirname, 'wallet');
+console.log(ccpPath);
+console.log(walletPath);
 const userId = 'User1';
 
 async function main() {
