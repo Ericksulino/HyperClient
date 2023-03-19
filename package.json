@@ -1,5 +1,5 @@
 {
-    "name": "CLI_Hyperledger",
+    "name": "cli_hyperledger",
     "version": "1.0.0",
     "description": "Cliente Hyperledger Fabric",
     "main": "fabric_cli.js",
