@@ -4,9 +4,7 @@ const fs = require('fs');
 
 // Configurações de conexão com a rede
 const ccpPath = path.resolve(__dirname, 'connection.json');
-const walletPath = path.resolve(__dirname, 'wallet/wallet.json');
-console.log(ccpPath);
-console.log(walletPath);
+const walletPath = path.resolve(__dirname, 'wallet');
 const userId = 'User1';
 
 async function main() {
@@ -20,6 +18,8 @@ async function main() {
     // Obtém a carteira do usuário
     const wallet = await Wallets.newFileSystemWallet(walletPath);
     const identity = await wallet.get(userId);
+
+    console.log(wallet);
 
     if (!identity) {
       console.log(`A identidade ${userId} não foi encontrada na carteira`);
