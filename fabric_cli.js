@@ -3,7 +3,7 @@ const path = require('path');
 
 // Configurações de conexão com a rede
 const ccpPath = path.join(__dirname, 'connection.json');
-const walletPath = path.join(__dirname, 'wallet');
+const walletPath = path.join(__dirname, 'wallet.json');
 const userId = 'user1';
 
 async function main() {
