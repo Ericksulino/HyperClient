@@ -9,20 +9,22 @@ const userId = 'user1';
 
 async function main() {
   try {
-  // Carrega as configurações de conexão com a rede
-  const ccp = await Gateway.connect(ccpPath, { wallet: Wallets.newFileSystemWallet(walletPath) });
+    // Cria uma instância da classe Gateway
+    const gateway = new Gateway();
 
-  // Obtém a carteira do usuário
-  const wallet = await Wallets.newFileSystemWallet(walletPath);
-  const identity = await wallet.get(userId);
+    // Carrega as configurações de conexão com a rede
+    const ccp = await gateway.getNetworkConfigFromYaml(ccpPath);
+
+    // Obtém a carteira do usuário
+    const wallet = await Wallets.newFileSystemWallet(walletPath);
+    const identity = await wallet.get(userId);
 
     if (!identity) {
       console.log(`A identidade ${userId} não foi encontrada na carteira`);
       return;
     }
 
-    // Cria um gateway e conecta à rede
-    const gateway = new Gateway();
+    // Conecta à rede
     await gateway.connect(ccp, { wallet, identity: userId, discovery: { enabled: true, asLocalhost: true } });
 
     // Obtém a rede e o contrato inteligente (chaincode)
