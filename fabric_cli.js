@@ -9,21 +9,11 @@ const userId = 'user1';
 async function main() {
   try {
     // Carrega as configurações de conexão com a rede
-    const ccp = await Gateway.connect(ccpPath, { wallet: Wallets.newInMemoryWallet() });
+    const ccp = await Gateway.connect(ccpPath, { wallet: walletPath });
 
     // Obtém a carteira do usuário
-    const wallet = Wallets.newInMemoryWallet();
-    const userCert = fs.readFileSync(path.join(__dirname, 'User1@org1.example.com-cert.pem')).toString();
-    const userKey = fs.readFileSync(path.join(__dirname, 'priv_sk')).toString();
-    const identity = {
-      credentials: {
-        certificate: userCert,
-        privateKey: userKey
-      },
-      mspId: 'Org1MSP',
-      type: 'X.509'
-    };
-    await wallet.add(userId, identity);
+    const wallet = await Wallets.newFileSystemWallet(walletPath);
+    const identity = await wallet.get(userId);
 
     if (!identity) {
       console.log(`A identidade ${userId} não foi encontrada na carteira`);
