@@ -9,14 +9,12 @@ const userId = 'user1';
 
 async function main() {
   try {
-   // Carrega as configurações de conexão com a rede
-   const ccpFile = fs.readFileSync(ccpPath);
-   const ccp = JSON.parse(ccpFile.toString());
+  // Carrega as configurações de conexão com a rede
+  const ccp = await Gateway.connect(ccpPath, { wallet: Wallets.newFileSystemWallet(walletPath) });
 
-   // Obtém a carteira do usuário
-   const walletFile = fs.readFileSync(walletPath);
-   const wallet = await Wallets.newJsonWalletRepository(walletFile);
-   const identity = await wallet.get(userId);
+  // Obtém a carteira do usuário
+  const wallet = await Wallets.newFileSystemWallet(walletPath);
+  const identity = await wallet.get(userId);
 
     if (!identity) {
       console.log(`A identidade ${userId} não foi encontrada na carteira`);
