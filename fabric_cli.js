@@ -16,6 +16,9 @@ async function main() {
     // Carrega as configurações de conexão com a rede
     const ccp = JSON.parse(fs.readFileSync(ccpPath, 'utf8'));
 
+    // Obtém as credenciais do usuário
+    const userCreds = JSON.parse(fs.readFileSync(userCredPath, 'utf8'));
+
    // Carrega a carteira
    const wallet = await Wallets.newFileSystemWallet(walletPath);
 
@@ -29,8 +32,20 @@ async function main() {
       return;
     }
 
+    // Configura as credenciais do usuário
+    const privateKeyPath = userCreds.credentials[userId].privateKey.path;
+    const privateKey = fs.readFileSync(privateKeyPath).toString();
+    const certificatePath = userCreds.credentials[userId].certificate.path;
+    const certificate = fs.readFileSync(certificatePath).toString();
+
     // Conecta à rede
-    await gateway.connect(ccp, { wallet, identity: userId, discovery: { enabled: true, asLocalhost: true } });
+    await gateway.connect(ccp, {
+      wallet,
+      identity: userId,
+      clientTlsIdentity: userId,
+      discovery: { enabled: true, asLocalhost: true },
+      identity: { credentials: { certificate, privateKey }, mspId: 'Org1MSP' }
+    });
 
     // Obtém a rede e o contrato inteligente (chaincode)
     const network = await gateway.getNetwork('mychannel');
