@@ -1,4 +1,4 @@
-const { Gateway, Wallets } = require('fabric-network');
+const { Gateway, Wallets ,NetworkConfig} = require('fabric-network');
 const path = require('path');
 const fs = require('fs');
 
@@ -13,7 +13,9 @@ async function main() {
     const gateway = new Gateway();
 
     // Carrega as configurações de conexão com a rede
-    const ccp = await gateway.getNetworkConfigFromYaml(ccpPath);
+    const ccpJson = fs.readFileSync(ccpPath, 'utf8');
+    const ccp = JSON.parse(ccpJson);
+    const networkConfig = await NetworkConfig.fromRawData(ccp);
 
     // Obtém a carteira do usuário
     const wallet = await Wallets.newFileSystemWallet(walletPath);
@@ -25,7 +27,7 @@ async function main() {
     }
 
     // Conecta à rede
-    await gateway.connect(ccp, { wallet, identity: userId, discovery: { enabled: true, asLocalhost: true } });
+    await gateway.connect(networkConfig, { wallet, identity: userId, discovery: { enabled: true, asLocalhost: true } });
 
     // Obtém a rede e o contrato inteligente (chaincode)
     const network = await gateway.getNetwork('mychannel');
