@@ -1,5 +1,6 @@
 const { Gateway, Wallets } = require('fabric-network');
 const path = require('path');
+const fs = require('fs');
 
 // Configurações de conexão com a rede
 const ccpPath = path.resolve(__dirname, 'connection.json');
@@ -8,12 +9,14 @@ const userId = 'user1';
 
 async function main() {
   try {
-    // Carrega as configurações de conexão com a rede
-    const ccp = await Gateway.connect(ccpPath, { wallet: walletPath });
+   // Carrega as configurações de conexão com a rede
+   const ccpFile = fs.readFileSync(ccpPath);
+   const ccp = JSON.parse(ccpFile.toString());
 
-    // Obtém a carteira do usuário
-    const wallet = await Wallets.newFileSystemWallet(walletPath);
-    const identity = await wallet.get(userId);
+   // Obtém a carteira do usuário
+   const walletFile = fs.readFileSync(walletPath);
+   const wallet = await Wallets.newJsonWalletRepository(walletFile);
+   const identity = await wallet.get(userId);
 
     if (!identity) {
       console.log(`A identidade ${userId} não foi encontrada na carteira`);
