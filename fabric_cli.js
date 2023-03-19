@@ -5,7 +5,8 @@ const fs = require('fs');
 // Configurações de conexão com a rede
 const ccpPath = path.resolve(__dirname, 'connection.json');
 const walletPath = path.resolve(__dirname, 'wallet');
-const userId = 'User1';
+const userId = 'user1';
+const userCredPath = path.resolve(__dirname, 'user1.json');
 
 async function main() {
   try {
@@ -15,9 +16,11 @@ async function main() {
     // Carrega as configurações de conexão com a rede
     const ccp = JSON.parse(fs.readFileSync(ccpPath, 'utf8'));
 
-    // Obtém a carteira do usuário
-    const wallet = await Wallets.newFileSystemWallet(walletPath);
-    const identity = await wallet.get(userId);
+   // Carrega a carteira
+   const wallet = await Wallets.newFileSystemWallet(walletPath);
+
+   // Verifica se a carteira possui a identidade do usuário
+   const identity = await wallet.get(userId);
 
     console.log(wallet);
 
