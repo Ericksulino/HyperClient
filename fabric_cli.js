@@ -1,4 +1,4 @@
-const { Gateway, Wallets} = require('fabric-network');
+const { Gateway, Wallets } = require('fabric-network');
 const path = require('path');
 const fs = require('fs');
 
@@ -6,7 +6,6 @@ const fs = require('fs');
 const ccpPath = path.resolve(__dirname, 'connection.json');
 const walletPath = path.resolve(__dirname, 'wallet');
 const userId = 'User1@org1.example.com';
-const userCredPath = path.resolve(__dirname, 'user1.json');
 
 async function main() {
   try {
@@ -16,16 +15,11 @@ async function main() {
     // Carrega as configurações de conexão com a rede
     const ccp = JSON.parse(fs.readFileSync(ccpPath, 'utf8'));
 
-    // Obtém as credenciais do usuário
-    const userCreds = JSON.parse(fs.readFileSync(userCredPath, 'utf8'));
+    // Carrega a carteira
+    const wallet = await Wallets.newFileSystemWallet(walletPath);
 
-   // Carrega a carteira
-   const wallet = await Wallets.newFileSystemWallet(walletPath);
-
-   // Verifica se a carteira possui a identidade do usuário
-   const identity = await wallet.get(userId);
-
-    //console.log(wallet);
+    // Verifica se a carteira possui a identidade do usuário
+    const identity = await wallet.get(userId);
 
     if (!identity) {
       console.log(`A identidade ${userId} não foi encontrada na carteira`);
@@ -33,13 +27,11 @@ async function main() {
     }
 
     // Configura as credenciais do usuário
-    const privateKeyPath = userCreds.credentials[userId].privateKey.path;
-    const privateKey = fs.readFileSync(privateKeyPath).toString();
-    const certificatePath = userCreds.credentials[userId].certificate.path;
-    const certificate = fs.readFileSync(certificatePath).toString();
+    const certificate = identity.credentials.certificate;
+    const privateKey = identity.credentials.privateKey;
 
-     // Conecta à rede
-     await gateway.connect(ccp, {
+    // Conecta à rede
+    await gateway.connect(ccp, {
       wallet,
       clientTlsIdentity: userId,
       discovery: { enabled: true, asLocalhost: true },
