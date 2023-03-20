@@ -23,6 +23,9 @@ async function main() {
     const certificate = fs.readFileSync(certificatePath).toString();
     const privateKey = fs.readFileSync(privateKeyPath).toString();
 
+    console.log(certificate);
+    console.log(privateKey);
+
     // Cria uma nova identidade de carteira
     const identityLabel = `${userId}@org1.example.com`;
     const mixin = X509WalletMixin.createIdentity('Org1MSP', certificate, privateKey);
