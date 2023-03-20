@@ -1,0 +1,10 @@
+{
+    "username": "User1",
+    "wallet": "Org1Wallet",
+    "label": "User1@org1.example.com",
+    "enrollmentId": "User1",
+    "enrollmentSecret": "",
+    "mspid": "Org1MSP",
+    "roles": null
+  }
+  
