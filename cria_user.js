@@ -4,8 +4,8 @@ const fs = require('fs');
 
 const walletPath = path.resolve(__dirname, 'wallet');
 const userId = 'user1';
-const certificatePath = path.resolve(__dirname, '../../caliper-workspace/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/signcerts/User1@org1.example.com-cert.pem');
-const privateKeyPath = path.resolve(__dirname, '../../caliper-workspace/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/keystore/priv_sk');
+const certificatePath = path.resolve(__dirname, '../caliper-workspace/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/signcerts/User1@org1.example.com-cert.pem');
+const privateKeyPath = path.resolve(__dirname, '../caliper-workspace/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/keystore/priv_sk');
 
 async function main() {
   try {
