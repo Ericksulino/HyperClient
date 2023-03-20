@@ -38,10 +38,9 @@ async function main() {
     const certificatePath = userCreds.credentials[userId].certificate.path;
     const certificate = fs.readFileSync(certificatePath).toString();
 
-    // Conecta à rede
-    await gateway.connect(ccp, {
+     // Conecta à rede
+     await gateway.connect(ccp, {
       wallet,
-      identity: userId,
       clientTlsIdentity: userId,
       discovery: { enabled: true, asLocalhost: true },
       identity: { credentials: { certificate, privateKey }, mspId: 'Org1MSP' }
