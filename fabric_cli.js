@@ -34,7 +34,7 @@ async function main() {
     await gateway.connect(ccp, {
       wallet,
       clientTlsIdentity: userId,
-      discovery: { enabled: true, asLocalhost: true },
+      discovery: { enabled: true, asLocalhost: false },
       identity: { credentials: { certificate, privateKey }, mspId: 'Org1MSP' }
     });
 
