@@ -19,7 +19,7 @@ async function main() {
     }
 
     // Lê o arquivo de chave privada e o arquivo de certificado público
-    const privateKey = fs.readFileSync('./caliper-workspace/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/keystore/priv_sk').toString();
+    const privateKey = fs.readFileSync('../caliper-workspace/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/keystore/priv_sk').toString();
     const certificate = fs.readFileSync('../caliper-workspace/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/signcerts/User1@org1.example.com-cert.pem').toString();
 
     // Cria uma nova identidade de carteira
