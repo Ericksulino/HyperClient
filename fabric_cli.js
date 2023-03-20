@@ -17,7 +17,7 @@ async function main() {
     const ccp = JSON.parse(fs.readFileSync(ccpPath, 'utf8'));
 
     // Obtém as credenciais do usuário
-    const userCreds = JSON.parse(fs.readFileSync(userCredPath, 'utf8'));
+    //const userCreds = JSON.parse(fs.readFileSync(userCredPath, 'utf8'));
 
    // Carrega a carteira
    const wallet = await Wallets.newFileSystemWallet(walletPath);
