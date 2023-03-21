@@ -34,7 +34,7 @@ async function main() {
     await gateway.connect(ccp, {
       wallet,
       identity: userId,
-      discovery: false,
+      discovery: { enabled: true, asLocalhost: false },
     });
 
     // Obtém a rede e o contrato inteligente (chaincode)
@@ -56,13 +56,20 @@ async function main() {
       car: Buffer.from(JSON.stringify(car)),
     });
 
-    // Endossa a proposta de transação
-    const transaction = proposal.sign();
-    const result = await transaction.evaluate();
+     // Assina e endossa a proposta de transação
+     const transaction = proposal.sign();
+     const endorsement = await transaction.endorse();
 
-    // Submete a transação para a rede
-    const commit = await transaction.submit();
-    const status = await commit.getStatus();
+    // Verifica se todos os endorsements foram bem sucedidos
+    if (endorsement.every(({ response }) => response.status === 200)) {
+        // Submete a transação para a rede
+        const commit = await transaction.submit();
+        const status = await commit.getStatus();
+        console.log(`Transaction status: ${status}`);
+    } else {
+        console.log('A transação foi rejeitada pelos endorsers.');
+    }
+
 
     console.log(`Transaction status: ${status}`);
     console.log(`Transaction result: ${result.toString()}`);
