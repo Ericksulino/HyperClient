@@ -34,7 +34,7 @@ async function main() {
     await gateway.connect(ccp, {
       wallet,
       identity: userId,
-      discovery: { enabled: true, asLocalhost: false },
+      discovery: false,
     });
 
     // Obtém a rede e o contrato inteligente (chaincode)
