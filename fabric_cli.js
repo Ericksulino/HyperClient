@@ -33,9 +33,8 @@ async function main() {
     // Conecta à rede
     await gateway.connect(ccp, {
       wallet,
-      clientTlsIdentity: userId,
+      identity: userId,
       discovery: { enabled: true, asLocalhost: false },
-      identity: { credentials: { certificate, privateKey }, mspId: 'Org1MSP' }
     });
 
     // Obtém a rede e o contrato inteligente (chaincode)
