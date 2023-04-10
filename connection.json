@@ -53,7 +53,7 @@
     "peers": {
         "peer0.org1.example.com": {
             "url": "grpcs://peer0.org1.example.com:7051",
-            "eventUrl": "grpcs://peer0.org1.example.com:7053",
+            "eventUrl": "grpcs://peer0.org1.example.com:7051",
             "grpcOptions": {
                 "ssl-target-name-override": "peer0.org1.example.com",
                 "hostnameOverride": "peer0.org1.example.com"
