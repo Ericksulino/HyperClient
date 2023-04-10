@@ -6,9 +6,9 @@
         "connection": {
             "timeout": {
                 "peer": {
-                    "endorser": "300"
+                    "endorser": "5000"
                 },
-                "orderer": "300"
+                "orderer": "5000"
             }
         }
     },
