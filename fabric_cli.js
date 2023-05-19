@@ -44,7 +44,7 @@ async function main() {
     // Cria uma proposta de transação
     const proposal = contract.createTransaction('createCar');
     proposal.setEndorsingPeers(['peer0.org1.example.com']);
-
+   
     // Define os argumentos da transação
     const car = {
       make: 'Toyota',
@@ -56,22 +56,18 @@ async function main() {
       car: Buffer.from(JSON.stringify(car)),
     });
 
-    // Assina a proposta de transação
-    const signedProposal = proposal.sign();
-
-    // Endossa a proposta de transação
-    const endorsement = await contract.sendTransaction(signedProposal);
+     // Endossa a proposta de transação
+     const endorsement = await proposal.endorse();
 
     // Verifica se todos os endorsements foram bem sucedidos
     if (endorsement.every(({ response }) => response.status === 200)) {
-      // Submete a transação para a rede
-      const commit = await contract.submitTransaction(signedProposal);
-      const status = commit.status;
-      console.log(`Transaction status: ${status}`);
+        // Submete a transação para a rede
+        const commit = await transaction.submit();
+        const status = await commit.getStatus();
+        console.log(`Transaction status: ${status}`);
     } else {
-      console.log('A transação foi rejeitada pelos endorsers.');
+        console.log('A transação foi rejeitada pelos endorsers.');
     }
-
 
 
     console.log(`Transaction status: ${status}`);
