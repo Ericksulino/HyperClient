@@ -44,7 +44,7 @@ async function main() {
     // Cria uma proposta de transação
     const proposal = contract.createTransaction('createCar');
     proposal.setEndorsingPeers(['peer0.org1.example.com']);
-    console.log("AQUI!")
+   
     // Define os argumentos da transação
     const car = {
       make: 'Toyota',
