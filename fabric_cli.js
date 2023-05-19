@@ -56,8 +56,8 @@ async function main() {
       car: Buffer.from(JSON.stringify(car)),
     });
 
-     // Endossa a proposta de transação
-     const endorsement = await proposal.endorse();
+    // Obtém os endossos para a proposta de transação
+    const endorsement = proposal.getSignedProposal();
 
     // Verifica se todos os endorsements foram bem sucedidos
     if (endorsement.every(({ response }) => response.status === 200)) {
