@@ -54,6 +54,7 @@ async function main() {
       model: 'Prius',
       color: 'blue',
       owner: 'Tom',
+      year: '2023',
     };
 
     transaction.setTransient({
