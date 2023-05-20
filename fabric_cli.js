@@ -67,6 +67,8 @@ async function main() {
       car: Buffer.from(JSON.stringify(car)),
     });
    
+    console.log("Transação: "+car);
+    
     // Endossa a proposta de transação
     const endorsement = await transaction.submit();
  
