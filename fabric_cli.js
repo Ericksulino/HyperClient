@@ -30,21 +30,15 @@ async function main() {
     const certificate = identity.credentials.certificate;
     const privateKey = identity.credentials.privateKey;
 
-    
-      // Conecta à rede
-      await gateway.connect(ccp, {
-        wallet,
-        identity: userId,
-        discovery: { enabled: true, asLocalhost: false },
-      });
+    // Conecta à rede
+    await gateway.connect(ccp, {
+      wallet,
+      identity: userId,
+      discovery: { enabled: true, asLocalhost: false },
+    });
 
-      // Verifica se a conexão foi estabelecida com sucesso
-      const isConnected = await gateway.getClient().isConnected();
-      if (isConnected) {
-      console.log('Conexão estabelecida com sucesso à rede Hyperledger Fabric');
-    } else {
-      console.log('Falha ao estabelecer conexão com a rede Hyperledger Fabric');
-    }
+
+    console.log('Conexão estabelecida com sucesso à rede Hyperledger Fabric');
 
     // Obtém a rede e o contrato inteligente (chaincode)
     const network = await gateway.getNetwork('mychannel');
@@ -66,8 +60,7 @@ async function main() {
     });
 
      // Assina e endossa a proposta de transação
-     const transaction = proposal.sign();
-     const endorsement = await transaction.endorse();
+     const transaction = await proposal.endorse();
 
     // Verifica se todos os endorsements foram bem sucedidos
     if (endorsement.every(({ response }) => response.status === 200)) {
