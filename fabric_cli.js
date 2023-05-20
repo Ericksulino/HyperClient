@@ -44,9 +44,9 @@ async function main() {
     const network = await gateway.getNetwork('mychannel');
     const contract = network.getContract('fabcar');
 
-    // Cria uma proposta de transação
-    const proposal = contract.createTransaction('createCar');
-    proposal.setEndorsingPeers(['peer0.org1.example.com']);
+  // Cria uma proposta de transação
+  const transaction = contract.createTransaction('createCar');
+  transaction.setEndorsingPeers(['peer0.org1.example.com']);
   
     // Define os argumentos da transação
     const car = {
@@ -59,8 +59,11 @@ async function main() {
       car: Buffer.from(JSON.stringify(car)),
     });
 
-     // Assina e endossa a proposta de transação
-     const transaction = await proposal.endorse();
+  // Assina a proposta de transação
+  const signedProposal = await transaction.sign();
+
+  // Endossa a proposta de transação
+  const endorsement = await transaction.send(signedProposal);
 
     // Verifica se todos os endorsements foram bem sucedidos
     if (endorsement.every(({ response }) => response.status === 200)) {
