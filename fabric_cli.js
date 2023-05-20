@@ -63,12 +63,12 @@ async function main() {
     // Define os argumentos da transação
     const car = ["CAR10", "VW", "Polo", "Grey", "Mary"];
 
-    /*
+    
     transaction.setTransient({
       car: Buffer.from(JSON.stringify(car)),
     });
-   */
-    console.log("Transação: "+car);
+   
+    console.log("Transação: "+transaction);
 
     // Endossa a proposta de transação
     const endorsement = await transaction.submit();
