@@ -79,6 +79,7 @@ async function main() {
     // Verifica se todos os endorsements foram bem sucedidos
     if (endorsement.every(({ response }) => response.status === 200)) {
       // Espera a transação ser confirmada pela rede
+      console.log("aqui")
       await network.getCommitHandler().waitForEvents(transaction.getTransactionId());
 
       // Obtém o status da transação confirmada
