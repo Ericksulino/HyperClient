@@ -39,12 +39,12 @@ async function main() {
       });
 
       // Verifica se a conexão foi estabelecida com sucesso
-    if (gateway.getClient().isConnected()) {
+    if (gateway.getOptions().discovery.asLocalhost && gateway.getCurrentIdentity()) {
       console.log('Conexão estabelecida com sucesso à rede Hyperledger Fabric');
     } else {
       console.log('Falha ao estabelecer conexão com a rede Hyperledger Fabric');
     }
-    
+
     // Obtém a rede e o contrato inteligente (chaincode)
     const network = await gateway.getNetwork('mychannel');
     const contract = network.getContract('fabcar');
