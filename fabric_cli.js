@@ -55,13 +55,20 @@ async function main() {
     const contract = network.getContract('fabcar');
 
     // Cria uma proposta de transação
-    const transaction = contract.createTransaction('invoke');
+    const transaction = contract.createTransaction('createCar');
     transaction.setEndorsingPeers(['peer0.org1.example.com']);
+  
+    const hash = generateRandomHash();
 
-    const args = ["createCar", "CAR10", "VW", "Polo", "Grey", "Mary"];
+    // Define os argumentos da transação
+    const car = ["CAR10", "VW", "Polo", "Grey", "Mary"];
+
+    transaction.setTransient({
+      car: Buffer.from(JSON.stringify(car)),
+    });
    
     // Endossa a proposta de transação
-    const endorsement = await transaction.submit(...args);
+    const endorsement = await transaction.submit();
  
     // Verifica se todos os endorsements foram bem sucedidos
     if (endorsement.every(({ response }) => response.status === 200)) {
