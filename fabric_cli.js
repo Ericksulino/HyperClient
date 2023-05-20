@@ -58,23 +58,26 @@ async function main() {
     const transaction = contract.createTransaction('CreateCar');
     transaction.setEndorsingPeers(['peer0.org1.example.com']);
   
-    const hash = generateRandomHash();
-
     // Define os argumentos da transação
-    const car = {
-      Make: "VW",
-      Model:  "Polo",
-      Colour:  "Grey",
-      Owner:  "Mary",
-    }
-    //[hash, "VW", "Polo", "Grey", "Mary"];
+    const hash = generateRandomHash();
+    const make = "VW";
+    const model = "Polo";
+    const color = "Grey";
+    const owner = "Mary";
 
+    // Define os argumentos na transação
     transaction.setTransient({
-      car: Buffer.from(JSON.stringify(car)),
+      hash: Buffer.from(hash),
+      make: Buffer.from(make),
+      model: Buffer.from(model),
+      color: Buffer.from(color),
+      owner: Buffer.from(owner)
     });
-    console.log("aqui")
-    // Endossa a proposta de transação
-    const endorsement = await transaction.submit();
+
+    // Submete a proposta de transação e aguarda o resultado
+    const result = await transaction.submit();
+
+    console.log('Transação enviada com sucesso. Código de status:', result.toString());
  
     // Verifica se todos os endorsements foram bem sucedidos
     if (endorsement.every(({ response }) => response.status === 200)) {
