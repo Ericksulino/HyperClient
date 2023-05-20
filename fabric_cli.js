@@ -55,7 +55,8 @@ async function main() {
       color: 'blue',
       owner: 'Tom',
     };
-    proposal.setTransient({
+    
+    transaction.setTransient({
       car: Buffer.from(JSON.stringify(car)),
     });
 
