@@ -75,19 +75,15 @@ async function main() {
 
     // Endossa a proposta de transação
     const endorsement = await transaction.submit();
-
+    console.log("aqui")
     // Verifica se todos os endorsements foram bem sucedidos
     if (endorsement.every(({ response }) => response.status === 200)) {
-      // Espera a transação ser confirmada pela rede
-      console.log("aqui")
-      await network.getCommitHandler().waitForEvents(transaction.getTransactionId());
-
-      // Obtém o status da transação confirmada
-      const result = await transaction.evaluate();
-
-      console.log(`Status da transação: ${result}`);
+        // Submete a transação para a rede
+        const commit = await transaction.submit();
+        const status = await commit.getStatus();
+        console.log(`Transaction status: ${status}`);
     } else {
-      console.log('A transação foi rejeitada pelos endorsers.');
+        console.log('A transação foi rejeitada pelos endorsers.');
     }
 
 
