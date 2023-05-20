@@ -72,10 +72,10 @@ async function main() {
     transaction.setTransient({
       car: Buffer.from(JSON.stringify(car)),
     });
-
+    console.log("aqui")
     // Endossa a proposta de transação
     const endorsement = await transaction.submit();
-    console.log("aqui")
+ 
     // Verifica se todos os endorsements foram bem sucedidos
     if (endorsement.every(({ response }) => response.status === 200)) {
         // Submete a transação para a rede
