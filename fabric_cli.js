@@ -40,7 +40,9 @@ async function main() {
 
       console.log('Conexão estabelecida com sucesso à rede Hyperledger Fabric');
 
-
+    } catch (error) {
+      console.error('Falha ao estabelecer conexão com a rede Hyperledger Fabric:', error);
+    }
     // Obtém a rede e o contrato inteligente (chaincode)
     const network = await gateway.getNetwork('mychannel');
     const contract = network.getContract('fabcar');
@@ -80,9 +82,6 @@ async function main() {
 
     // Fecha o gateway e desconecta da rede
     await gateway.disconnect();
-  } catch (error) {
-    console.error('Falha ao estabelecer conexão com a rede Hyperledger Fabric:', error);
-  }
   } catch (error) {
     console.error(`Failed to submit transaction: ${error}`);
     process.exit(1);
