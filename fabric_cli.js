@@ -59,11 +59,9 @@ async function main() {
     transaction.setEndorsingPeers(['peer0.org1.example.com']);
 
     const args = ["createCar", "CAR10", "VW", "Polo", "Grey", "Mary"];
-
-    transaction.setArgs(args);
    
     // Endossa a proposta de transação
-    const endorsement = await transaction.submit();
+    const endorsement = await transaction.submit(...args);
  
     // Verifica se todos os endorsements foram bem sucedidos
     if (endorsement.every(({ response }) => response.status === 200)) {
