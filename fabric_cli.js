@@ -30,7 +30,7 @@ async function main() {
     const certificate = identity.credentials.certificate;
     const privateKey = identity.credentials.privateKey;
 
-    try {
+    
       // Conecta à rede
       await gateway.connect(ccp, {
         wallet,
@@ -38,11 +38,13 @@ async function main() {
         discovery: { enabled: true, asLocalhost: false },
       });
 
+      // Verifica se a conexão foi estabelecida com sucesso
+    if (gateway.getClient().isConnected()) {
       console.log('Conexão estabelecida com sucesso à rede Hyperledger Fabric');
-
-    } catch (error) {
-      console.error('Falha ao estabelecer conexão com a rede Hyperledger Fabric:', error);
+    } else {
+      console.log('Falha ao estabelecer conexão com a rede Hyperledger Fabric');
     }
+    
     // Obtém a rede e o contrato inteligente (chaincode)
     const network = await gateway.getNetwork('mychannel');
     const contract = network.getContract('fabcar');
