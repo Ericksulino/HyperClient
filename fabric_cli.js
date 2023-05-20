@@ -50,11 +50,11 @@ async function main() {
   
     // Define os argumentos da transação
     const car = {
-      make: 'Toyota',
-      model: 'Prius',
-      color: 'blue',
-      owner: 'Tom',
-      year: '2023',
+      carMake: 'Toyota',
+      carModel: 'Prius',
+      carColor: 'blue',
+      carowner: 'Tom',
+      carYear: '2023',
     };
 
     transaction.setTransient({
