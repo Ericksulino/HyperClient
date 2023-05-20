@@ -55,7 +55,7 @@ async function main() {
     const contract = network.getContract('fabcar');
 
     // Cria uma proposta de transação
-    const transaction = contract.createTransaction('createCar');
+    const transaction = contract.createTransaction('CreateCar');
     transaction.setEndorsingPeers(['peer0.org1.example.com']);
   
     const hash = generateRandomHash();
