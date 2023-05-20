@@ -64,7 +64,11 @@ async function main() {
     const car = [hash, "VW", "Polo", "Grey", "Mary"];
 
     transaction.setTransient({
-      car: Buffer.from(JSON.stringify(car)),
+      carHash: Buffer.from(car[0]),
+      carMake: Buffer.from(car[1]),
+      carModel: Buffer.from(car[2]),
+      carColor: Buffer.from(car[3]),
+      carOwner: Buffer.from(car[4]),
     });
    
     // Endossa a proposta de transação
@@ -76,7 +80,7 @@ async function main() {
       await network.getCommitHandler().waitForEvents(transaction.getTransactionId());
 
       // Obtém o status da transação confirmada
-      const status = await transaction.evaluate();
+      const status = await transaction.waitComplete();
 
       console.log(`Transaction status: ${status}`);
     } else {
