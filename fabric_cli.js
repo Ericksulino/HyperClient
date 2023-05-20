@@ -55,16 +55,13 @@ async function main() {
       color: 'blue',
       owner: 'Tom',
     };
-    
+
     transaction.setTransient({
       car: Buffer.from(JSON.stringify(car)),
     });
 
-  // Assina a proposta de transação
-  const signedProposal = await transaction.sign();
-
   // Endossa a proposta de transação
-  const endorsement = await transaction.send(signedProposal);
+  const endorsement = await transaction.submit();
 
     // Verifica se todos os endorsements foram bem sucedidos
     if (endorsement.every(({ response }) => response.status === 200)) {
