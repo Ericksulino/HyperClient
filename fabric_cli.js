@@ -58,35 +58,29 @@ async function main() {
     const transaction = contract.createTransaction('CreateCar');
     transaction.setEndorsingPeers(['peer0.org1.example.com']);
   
-    // Define os argumentos da transação
     const hash = generateRandomHash();
-    const make = "VW";
-    const model = "Polo";
-    const color = "Grey";
-    const owner = "Mary";
 
-    // Define os argumentos na transação
+    // Define os argumentos da transação
+    const car = [hash, "VW", "Polo", "Grey", "Mary"];
+
     transaction.setTransient({
-      hash: Buffer.from(hash),
-      make: Buffer.from(make),
-      model: Buffer.from(model),
-      color: Buffer.from(color),
-      owner: Buffer.from(owner)
+      car: Buffer.from(JSON.stringify(car)),
     });
-
-    // Submete a proposta de transação e aguarda o resultado
-    const result = await transaction.submit();
-
-    console.log('Transação enviada com sucesso. Código de status:', result.toString());
+   
+    // Endossa a proposta de transação
+    const endorsement = await transaction.submit();
  
     // Verifica se todos os endorsements foram bem sucedidos
     if (endorsement.every(({ response }) => response.status === 200)) {
-        // Submete a transação para a rede
-        const commit = await transaction.submit();
-        const status = await commit.getStatus();
-        console.log(`Transaction status: ${status}`);
+      // Espera a transação ser confirmada pela rede
+      await network.getCommitHandler().waitForEvents(transaction.getTransactionId());
+
+      // Obtém o status da transação confirmada
+      const status = await transaction.evaluate();
+
+      console.log(`Transaction status: ${status}`);
     } else {
-        console.log('A transação foi rejeitada pelos endorsers.');
+      console.log('A transação foi rejeitada pelos endorsers.');
     }
 
 
