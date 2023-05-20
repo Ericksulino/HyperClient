@@ -48,18 +48,22 @@ async function main() {
   const transaction = contract.createTransaction('createCar');
   transaction.setEndorsingPeers(['peer0.org1.example.com']);
   
-    // Define os argumentos da transação
-    const car = {
-      carMake: 'Toyota',
-      carModel: 'Prius',
-      carColor: 'blue',
-      carowner: 'Tom',
-      carYear: '2023',
-    };
+  // Define os argumentos da transação
+  const car = {
+    make: 'Toyota',
+    model: 'Prius',
+    color: 'blue',
+    owner: 'Tom',
+    year: '2023',
+  };
 
-    transaction.setTransient({
-      car: Buffer.from(JSON.stringify(car)),
-    });
+  transaction.setTransient({
+    carMake: Buffer.from(car.make),
+    carModel: Buffer.from(car.model),
+    carColor: Buffer.from(car.color),
+    carOwner: Buffer.from(car.owner),
+    carYear: Buffer.from(car.year),
+  });;
 
   // Endossa a proposta de transação
   const endorsement = await transaction.submit();
