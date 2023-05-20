@@ -37,6 +37,9 @@ async function main() {
       discovery: { enabled: true, asLocalhost: false },
     });
 
+
+    console.log('Conexão estabelecida com sucesso à rede Hyperledger Fabric');
+
     // Obtém a rede e o contrato inteligente (chaincode)
     const network = await gateway.getNetwork('mychannel');
     const contract = network.getContract('fabcar');
@@ -44,7 +47,7 @@ async function main() {
     // Cria uma proposta de transação
     const proposal = contract.createTransaction('createCar');
     proposal.setEndorsingPeers(['peer0.org1.example.com']);
-   
+  
     // Define os argumentos da transação
     const car = {
       make: 'Toyota',
@@ -56,8 +59,9 @@ async function main() {
       car: Buffer.from(JSON.stringify(car)),
     });
 
-    // Obtém os endossos para a proposta de transação
-    const endorsement = proposal.getSignedProposal();
+     // Assina e endossa a proposta de transação
+     const transaction = proposal.sign();
+     const endorsement = await transaction.endorse();
 
     // Verifica se todos os endorsements foram bem sucedidos
     if (endorsement.every(({ response }) => response.status === 200)) {
