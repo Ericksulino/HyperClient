@@ -61,7 +61,13 @@ async function main() {
     const hash = generateRandomHash();
 
     // Define os argumentos da transação
-    const car = [hash, "VW", "Polo", "Grey", "Mary"];
+    const car = {
+      Make: "VW",
+      Model:  "Polo",
+      Colour:  "Grey",
+      Owner:  "Mary",
+    }
+    //[hash, "VW", "Polo", "Grey", "Mary"];
 
     transaction.setTransient({
       car: Buffer.from(JSON.stringify(car)),
