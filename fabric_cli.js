@@ -1,4 +1,5 @@
 const { Gateway, Wallets } = require('fabric-network');
+const crypto = require('crypto');
 const path = require('path');
 const fs = require('fs');
 
@@ -6,6 +7,15 @@ const fs = require('fs');
 const ccpPath = path.resolve(__dirname, 'connection.json');
 const walletPath = path.resolve(__dirname, 'wallet');
 const userId = 'User1@org1.example.com';
+
+
+// Função para gerar um hash aleatório
+function generateRandomHash() {
+  const timestamp = new Date().getTime().toString();
+  const randomString = Math.random().toString();
+  const hash = crypto.createHash('sha256').update(timestamp + randomString).digest('hex');
+  return hash;
+}
 
 async function main() {
   try {
@@ -44,29 +54,21 @@ async function main() {
     const network = await gateway.getNetwork('mychannel');
     const contract = network.getContract('fabcar');
 
-  // Cria uma proposta de transação
-  const transaction = contract.createTransaction('createCar');
-  transaction.setEndorsingPeers(['peer0.org1.example.com']);
+    // Cria uma proposta de transação
+    const transaction = contract.createTransaction('createCar');
+    transaction.setEndorsingPeers(['peer0.org1.example.com']);
   
-  // Define os argumentos da transação
-  const car = {
-    make: 'Toyota',
-    model: 'Prius',
-    color: 'blue',
-    owner: 'Tom',
-    year: '2023',
-  };
+    const hash = generateRandomHash();
 
-  transaction.setTransient({
-    carMake: Buffer.from(car.make),
-    carModel: Buffer.from(car.model),
-    carColor: Buffer.from(car.color),
-    carOwner: Buffer.from(car.owner),
-    carYear: Buffer.from(car.year),
-  });;
+    // Define os argumentos da transação
+    const car = [hash, "VW", "Polo", "Grey", "Mary"];
 
-  // Endossa a proposta de transação
-  const endorsement = await transaction.submit();
+    transaction.setTransient({
+      car: Buffer.from(JSON.stringify(car)),
+    });
+
+    // Endossa a proposta de transação
+    const endorsement = await transaction.submit();
 
     // Verifica se todos os endorsements foram bem sucedidos
     if (endorsement.every(({ response }) => response.status === 200)) {
