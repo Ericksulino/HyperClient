@@ -55,21 +55,12 @@ async function main() {
     const contract = network.getContract('fabcar');
 
     // Cria uma proposta de transação
-    const transaction = contract.createTransaction('CreateCar');
+    const transaction = contract.createTransaction('invoke');
     transaction.setEndorsingPeers(['peer0.org1.example.com']);
-  
-    const hash = generateRandomHash();
 
-    // Define os argumentos da transação
-    const car = [hash, "VW", "Polo", "Grey", "Mary"];
+    const args = ["createCar", "CAR10", "VW", "Polo", "Grey", "Mary"];
 
-    transaction.setTransient({
-      carHash: Buffer.from(car[0]),
-      carMake: Buffer.from(car[1]),
-      carModel: Buffer.from(car[2]),
-      carColor: Buffer.from(car[3]),
-      carOwner: Buffer.from(car[4]),
-    });
+    transaction.setArgs(args);
    
     // Endossa a proposta de transação
     const endorsement = await transaction.submit();
@@ -79,8 +70,8 @@ async function main() {
       // Espera a transação ser confirmada pela rede
       await network.getCommitHandler().waitForEvents(transaction.getTransactionId());
 
-      // Obtém o status da transação confirmada
-      const status = await transaction.waitComplete();
+   // Obtém o status da transação confirmada
+   const status = await transaction.waitComplete();
 
       console.log(`Transaction status: ${status}`);
     } else {
