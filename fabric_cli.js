@@ -58,14 +58,12 @@ const submitTransactionSimple = async (contract) => {
   try {
 
     // Envie a transação "createCar"
-    const response = await contract.submitTransaction('createCar', 'CAR10',"VW", "Polo", "Grey", "Mary");
+    const responseBuffer = await contract.submitTransaction('createCar', 'CAR10', 'VW', 'Polo', 'Grey', 'Mary');
+    const response = responseBuffer.toString('utf8');
 
     console.log('Transação "createCar" enviada com sucesso.');
-    console.log(`Resposta da transação: ${response.toString()}`);
+    console.log('Resposta da transação:', response);
 
-    // Espera a transação ser confirmada pela rede
-    await contract.submitTransaction('commit');
-    console.log('Transação confirmada pela rede.');
   } catch (error) {
     console.error(`Erro ao enviar a transação: ${error}`);
     process.exit(1);
