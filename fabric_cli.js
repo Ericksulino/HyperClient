@@ -56,7 +56,6 @@ const submitTransaction = async (contract) =>{
 
 const submitTransactionSimple = async (contract) => {
   try {
-
     // Envie a transação "createCar"
     const responseBuffer = await contract.submitTransaction('createCar', 'CAR10', 'VW', 'Polo', 'Grey', 'Mary');
     const response = responseBuffer.toString('utf8');
@@ -64,11 +63,22 @@ const submitTransactionSimple = async (contract) => {
     console.log('Transação "createCar" enviada com sucesso.');
     console.log('Resposta da transação:', response);
 
+    // Espera a confirmação da transação pela rede
+    const listener = async (event) => {
+      if (event.eventName === 'tx-event' && event.transactionId === response) {
+        console.log('Transação confirmada pela rede.');
+        contract.removeContractListener(listener); // Remova o listener após a confirmação da transação
+        process.exit(0); // Encerre o processo
+      }
+    };
+
+    contract.addContractListener(listener);
   } catch (error) {
     console.error(`Erro ao enviar a transação: ${error}`);
     process.exit(1);
   }
 }
+
 
 
 const main = async () =>{
