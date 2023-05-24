@@ -24,11 +24,7 @@ const submitTransaction = async (contract) =>{
   
     const hash = generateRandomHash();
 
-    // Define os argumentos da transação
-    const car = ["CAR10", "VW", "Polo", "Grey", "Mary"];
-
-    
-    transaction.setTransient('CAR10',"VW", "Polo", "Grey", "Mary");
+    transaction.setTransient(hash,"VW", "Polo", "Grey", "Mary");
    
     //console.log("Transação: "+transaction);
 
@@ -110,7 +106,7 @@ const main = async () =>{
     const network = await gateway.getNetwork('mychannel');
     const contract = network.getContract('fabcar');
 
-    submitTransactionSimple(contract);
+    submitTransaction(contract);
 
     // Fecha o gateway e desconecta da rede
     await gateway.disconnect();
