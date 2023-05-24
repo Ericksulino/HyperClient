@@ -53,9 +53,11 @@ const submitTransactionSimple = async (contract) => {
     // Envie a transação "createCar"
     const responseBuffer = await contract.submitTransaction('createCar', 'CAR10', 'VW', 'Polo', 'Grey', 'Mary');
     const response = responseBuffer.toString('utf8');
-    if(response){
-       console.log('Transação "createCar" enviada com sucesso.');
+    if (response) {
+      console.log('Transação "createCar" enviada com sucesso.');
       console.log('Resposta da transação:', response);
+    } else {
+      throw new Error('Resposta da transação não disponível');
     }
 
     process.exit(0); // Encerre o processo após a exibição da resposta
@@ -63,7 +65,8 @@ const submitTransactionSimple = async (contract) => {
     console.error(`Erro ao enviar a transação: ${error}`);
     process.exit(1);
   }
-}
+};
+
 
 
 
@@ -104,7 +107,8 @@ const main = async () =>{
     const network = await gateway.getNetwork('mychannel');
     const contract = network.getContract('fabcar');
 
-    submitTransaction(contract);
+    //submitTransaction(contract);
+    submitTransactionSimple(contract);
 
     // Fecha o gateway e desconecta da rede
     await gateway.disconnect();
