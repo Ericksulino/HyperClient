@@ -28,9 +28,7 @@ const submitTransaction = async (contract) =>{
     const car = ["CAR10", "VW", "Polo", "Grey", "Mary"];
 
     
-    transaction.setTransient({
-      car: Buffer.from(JSON.stringify(car)),
-    });
+    transaction.setTransient('CAR10',"VW", "Polo", "Grey", "Mary");
    
     //console.log("Transação: "+transaction);
 
