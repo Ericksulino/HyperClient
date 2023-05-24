@@ -55,6 +55,30 @@ const submitTransaction = async (contract) =>{
     console.log(`Transaction result: ${result.toString()}`);
 }
 
+
+async function submitTransactionSimple(contract) {
+  try {
+    const carDetails = {
+      make: 'Toyota',
+      model: 'Prius',
+      color: 'blue',
+      owner: 'Tom'
+    };
+
+    // Envie a transação "createCar"
+    const response = await contract.submitTransaction('createCar', 'CAR10', JSON.stringify(carDetails));
+
+    console.log('Transação "createCar" enviada com sucesso.');
+    console.log(`Resposta da transação: ${response.toString()}`);
+  } catch (error) {
+    console.error(`Erro ao enviar a transação: ${error}`);
+    process.exit(1);
+  }
+}
+
+
+
+
 const main = async () =>{
   try {
     // Cria uma instância da classe Gateway
@@ -92,7 +116,7 @@ const main = async () =>{
     const network = await gateway.getNetwork('mychannel');
     const contract = network.getContract('fabcar');
 
-    submitTransaction(contract);
+    submitTransactionSimple(contract);
 
     // Fecha o gateway e desconecta da rede
     await gateway.disconnect();
