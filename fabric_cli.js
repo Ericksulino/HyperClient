@@ -24,9 +24,11 @@ const submitTransaction = async (contract) =>{
   
     const hash = generateRandomHash();
 
-    transaction.setTransient(hash,"VW", "Polo", "Grey", "Mary");
-   
-    //console.log("Transação: "+transaction);
+  // Define os argumentos da transação
+  const car = ["CAR10", "VW", "Polo", "Grey", "Mary"];
+  transaction.setTransient({
+    car: Buffer.from(JSON.stringify(car)),
+  });
 
     // Endossa a proposta de transação
     const endorsement = await transaction.submit();
