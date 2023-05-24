@@ -70,14 +70,22 @@ const submitTransactionSimple = async (contract) => {
 
 const queryAllCars = async (contract) => {
   try {
-    // Envie a transação "queryAllCars"
+    // Enviando a transação "queryAllCars"
     const responseBuffer = await contract.evaluateTransaction('queryAllCars');
     const response = responseBuffer.toString('utf8');
 
     // Verificando se a resposta está vazia
     if (response) {
       console.log('Consulta "queryAllCars" executada com sucesso.');
-      console.log('Resultado da consulta:', response);
+
+      // Pasando a resposta como JSON
+      const cars = JSON.parse(response);
+
+      // Exibindo os dados dos carros
+      console.log('Lista de carros:');
+      cars.forEach((car) => {
+        console.log(' -', car);
+      });
     } else {
       console.log('Nenhum resultado retornado pela consulta.');
     }
@@ -88,6 +96,7 @@ const queryAllCars = async (contract) => {
     process.exit(1);
   }
 }
+
 
 
 const main = async () =>{
