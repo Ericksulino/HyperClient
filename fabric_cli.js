@@ -10,14 +10,16 @@ const userId = 'User1@org1.example.com';
 
 
 // Função para gerar um hash aleatório
-function generateRandomHash() {
+const generateRandomHash = () => {
   const timestamp = new Date().getTime().toString();
   const randomString = Math.random().toString();
   const hash = crypto.createHash('sha256').update(timestamp + randomString).digest('hex');
   return hash;
 }
 
-async function main() {
+
+
+const main = async () =>{
   try {
     // Cria uma instância da classe Gateway
     const gateway = new Gateway();
