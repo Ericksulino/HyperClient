@@ -110,7 +110,7 @@ const main = async () =>{
     const network = await gateway.getNetwork('mychannel');
     const contract = network.getContract('fabcar');
 
-    submitTransaction(contract);
+    submitTransactionSimple(contract);
 
     // Fecha o gateway e desconecta da rede
     await gateway.disconnect();
