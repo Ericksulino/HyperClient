@@ -66,7 +66,7 @@ async function submitTransactionSimple(contract) {
     };
 
     // Envie a transação "createCar"
-    const response = await contract.submitTransaction('createCar', 'CAR10', JSON.stringify(carDetails));
+    const response = await contract.submitTransaction('createCar', 'CAR10',"VW", "Polo", "Grey", "Mary");
 
     console.log('Transação "createCar" enviada com sucesso.');
     console.log(`Resposta da transação: ${response.toString()}`);
