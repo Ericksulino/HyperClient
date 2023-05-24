@@ -26,7 +26,7 @@ const submitTransaction = async (contract) => {
     transaction.setEndorsingPeers(['peer0.org1.example.com', 'peer1.org1.example.com', 'peer0.org2.example.com']);
 
     // Endossa a proposta de transação
-    const endorsement = await transaction.submit('CAR10', 'VW', 'Polo', 'Grey', 'Mary');
+    const endorsement = await transaction.submit('CAR34', 'VW', 'Polo', 'Grey', 'Mary');
 
     // Verifica se todos os endorsements foram bem sucedidos
     if (endorsement.every(({ response }) => response.status === 200)) {
@@ -136,8 +136,8 @@ const main = async () =>{
     const network = await gateway.getNetwork('mychannel');
     const contract = network.getContract('fabcar');
 
-    //submitTransaction(contract);
-    submitTransactionSimple(contract);
+    submitTransaction(contract);
+    //submitTransactionSimple(contract);
     queryAllCars(contract);
 
     // Fecha o gateway e desconecta da rede
