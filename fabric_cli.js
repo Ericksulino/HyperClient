@@ -68,6 +68,26 @@ const submitTransactionSimple = async (contract) => {
 };
 
 
+const queryAllCars = async (contract) => {
+  try {
+    // Envie a transação "queryAllCars"
+    const responseBuffer = await contract.evaluateTransaction('queryAllCars');
+    const response = responseBuffer.toString('utf8');
+
+    // Verificando se a resposta está vazia
+    if (response) {
+      console.log('Consulta "queryAllCars" executada com sucesso.');
+      console.log('Resultado da consulta:', response);
+    } else {
+      console.log('Nenhum resultado retornado pela consulta.');
+    }
+
+    process.exit(0); // Encerrando o processo após a exibição da resposta
+  } catch (error) {
+    console.error(`Erro ao executar a consulta: ${error}`);
+    process.exit(1);
+  }
+}
 
 
 const main = async () =>{
@@ -109,6 +129,7 @@ const main = async () =>{
 
     //submitTransaction(contract);
     submitTransactionSimple(contract);
+    queryAllCars(contract);
 
     // Fecha o gateway e desconecta da rede
     await gateway.disconnect();
