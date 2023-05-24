@@ -51,7 +51,7 @@ const submitTransaction = async (contract) => {
 const submitTransactionSimple = async (contract) => {
   try {
     // Envie a transação "createCar"
-    const responseBuffer = await contract.submitTransaction('createCar', 'CAR10', 'VW', 'Polo', 'Grey', 'Mary');
+    const responseBuffer = await contract.submitTransaction('createCar', 'CAR22', 'VW', 'Polo', 'Grey', 'Mary');
     const response = responseBuffer.toString('utf8');
     if (response) {
       console.log('Transação "createCar" enviada com sucesso.');
