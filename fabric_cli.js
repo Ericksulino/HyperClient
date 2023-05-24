@@ -61,14 +61,25 @@ const submitTransactionSimple = async (contract) => {
     const response = responseBuffer.toString('utf8');
 
     console.log('Transação "createCar" enviada com sucesso.');
-    console.log('Resposta da transação:', response);
+    console.log('Resposta da transação:'+response);
 
-    process.exit(0); // Encerre o processo após a exibição da resposta
+    // Verifique o status da transação
+    const transactionStatus = await contract.getTransactionStatus(response);
+
+    // Verifique se a transação foi bem-sucedida
+    if (transactionStatus === 'success') {
+      console.log('A transação foi bem-sucedida.');
+      process.exit(0);
+    } else {
+      console.log('A transação falhou.');
+      process.exit(1);
+    }
   } catch (error) {
     console.error(`Erro ao enviar a transação: ${error}`);
     process.exit(1);
   }
 }
+
 
 
 
