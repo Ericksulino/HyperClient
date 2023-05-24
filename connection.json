@@ -23,12 +23,6 @@
                 	"chaincodeQuery": true,
                 	"ledgerQuery": true,
                 	"eventSource": true                   
-                },
-                "peer0.org2.example.com":{
-                    "endorsingPeer": true,
-                	"chaincodeQuery": true,
-                	"ledgerQuery": true,
-                	"eventSource": true  
                 }
             }
         }
