@@ -21,7 +21,7 @@ const submitTransaction = async (contract) => {
   try {
     // Cria uma proposta de transação
     const transaction = contract.createTransaction('createCar');
-    transaction.setEndorsingPeers(['peer0.org1.example.com']);
+    transaction.setEndorsingPeers(['peer0.org1.example.com','peer0.org2.example.com']);
 
     // Endossa a proposta de transação
     const endorsement = await transaction.submit('CAR10', 'VW', 'Polo', 'Grey', 'Mary');
