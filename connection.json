@@ -35,7 +35,7 @@
                 "ca.org1.example.com"
             ]
         },
-        "Org2": {
+        "Org2MSP": {
           "mspid": "Org2MSP",
           "peers": [
             "peer0.org2.example.com"
