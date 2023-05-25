@@ -135,19 +135,24 @@ const main = async () =>{
     // Obtém a rede e o contrato inteligente (chaincode)
     const network = await gateway.getNetwork('mychannel');
     const contract = network.getContract('fabcar');
-    switch (process.argv.slice(2)){
+
+
+    const argument = process.argv[2];
+
+    switch (argument) {
       case "transaction":
-          submitTransaction(contract);
-          break;
-      case "simpleTransactio":
-          submitTransactionSimple(contract);
-          break;
+        submitTransaction(contract);
+        break;
+      case "simpleTransaction":
+        submitTransactionSimple(contract);
+        break;
       case "queryAll":
-          queryAll(contract);
-          break;
+        queryAll(contract);
+        break;
       default:
-        console.log("Argumentos Inválidos!")
+        console.log("Argumento Inválido!"+argument);
     }
+    
 
 
     // Fecha o gateway e desconecta da rede
