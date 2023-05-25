@@ -136,9 +136,13 @@ const main = async () =>{
     const network = await gateway.getNetwork('mychannel');
     const contract = network.getContract('fabcar');
 
-    submitTransaction(contract);
+    //submitTransaction(contract);
     //submitTransactionSimple(contract);
    //queryAllCars(contract);
+
+   // arquivo.js
+  console.log('Argumentos:', process.argv.slice(2));
+
 
     // Fecha o gateway e desconecta da rede
     await gateway.disconnect();
