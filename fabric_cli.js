@@ -150,7 +150,7 @@ const main = async () =>{
         queryAll(contract);
         break;
       default:
-        console.log("Argumento Inválido!"+argument);
+        console.log("Argumento Inválido!: "+argument);
     }
     
 
