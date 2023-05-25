@@ -56,7 +56,7 @@ const submitTransactionSimple = async (contract) => {
 
     console.log('Transação "createCar" enviada com sucesso.');
 
-    process.exit(0); // Encerrando o processo após a exibição da mensagem de sucesso
+    //process.exit(0); // Encerrando o processo após a exibição da mensagem de sucesso
   } catch (error) {
     console.error(`Erro ao enviar a transação: ${error}`);
     process.exit(1);
@@ -66,7 +66,7 @@ const submitTransactionSimple = async (contract) => {
 
 const submitTransactionMultiple = async (contract, n) => {
   try {
-    
+
     if (!n) {
       n = 1; // Define o valor padrão de n como 1 quando não há argumento
     }
