@@ -64,6 +64,9 @@ const submitTransactionSimple = async (contract) => {
 
 const submitTransactionMultiple = async (contract, n = 1) => {
   try {
+    
+    n = parseInt(n); // Converter n para um número inteiro
+
     for (let i = 0; i < n; i++) {
       let hash = generateRandomHash();
       // Enviando a transação "createCar"
