@@ -47,7 +47,6 @@ const submitTransaction = async (contract) => {
 };
 
 
-
 const submitTransactionSimple = async (contract) => {
   try {
     // Enviando a transação "createCar"
@@ -61,6 +60,26 @@ const submitTransactionSimple = async (contract) => {
     process.exit(1);
   }
 };
+
+
+const submitTransactionMultiple = async (contract, n = 1) => {
+  try {
+    for (let i = 0; i < n; i++) {
+      let hash = generateRandomHash();
+      // Enviando a transação "createCar"
+      await contract.submitTransaction('createCar', `${hash}`, 'Nissan', 'Skyline', 'Silver', 'Brian');
+      console.log(`${i + 1} Transação "createCar" :${hash} enviada com sucesso.`);
+    }
+
+    console.log(`Total de ${n} transações "createCar" enviadas com sucesso.`);
+
+    process.exit(0); // Encerrando o processo após a exibição da mensagem de sucesso
+  } catch (error) {
+    console.error(`Erro ao enviar a transação: ${error}`);
+    process.exit(1);
+  }
+};
+
 
 
 const queryAll = async (contract) => {
@@ -158,6 +177,10 @@ const main = async () =>{
         break;
       case "simpleTransaction":
         submitTransactionSimple(contract);
+        break;
+      case "submitTransactionMultiple":
+        const n = parseInt(process.argv[3]);
+        await submitTransactionMultiple(contract, n);
         break;
       case "queryAll":
         queryAll(contract);
