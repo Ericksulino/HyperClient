@@ -64,10 +64,12 @@ const submitTransactionSimple = async (contract) => {
 };
 
 
-const submitTransactionMultiple = async (contract, n = 1) => {
+const submitTransactionMultiple = async (contract, n) => {
   try {
-
-    n = parseInt(n); // Converter n para um número inteiro
+    
+    if (!n) {
+      n = 1; // Define o valor padrão de n como 1 quando não há argumento
+    }
 
     for (let i = 0; i < n; i++) {
       let hash = generateRandomHash();
@@ -84,7 +86,6 @@ const submitTransactionMultiple = async (contract, n = 1) => {
     process.exit(1);
   }
 };
-
 
 
 const queryAll = async (contract) => {
