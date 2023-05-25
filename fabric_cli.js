@@ -14,8 +14,10 @@ const generateRandomHash = () => {
   const timestamp = new Date().getTime().toString();
   const randomString = Math.random().toString();
   const hash = crypto.createHash('sha256').update(timestamp + randomString).digest('hex');
-  return hash;
-}
+  const truncatedHash = hash.substring(0, 5); // Extrai os primeiros 5 caracteres do hash
+  return truncatedHash;
+};
+
 
 const submitTransaction = async (contract) => {
   try {
@@ -64,7 +66,7 @@ const submitTransactionSimple = async (contract) => {
 
 const submitTransactionMultiple = async (contract, n = 1) => {
   try {
-    
+
     n = parseInt(n); // Converter n para um número inteiro
 
     for (let i = 0; i < n; i++) {
