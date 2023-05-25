@@ -68,7 +68,7 @@ const submitTransactionSimple = async (contract) => {
 };
 
 
-const queryAllCars = async (contract) => {
+const queryAll = async (contract) => {
   try {
     // Enviando a transação "queryAllCars"
     const responseBuffer = await contract.evaluateTransaction('queryAllCars');
@@ -135,13 +135,19 @@ const main = async () =>{
     // Obtém a rede e o contrato inteligente (chaincode)
     const network = await gateway.getNetwork('mychannel');
     const contract = network.getContract('fabcar');
-
-    //submitTransaction(contract);
-    //submitTransactionSimple(contract);
-   //queryAllCars(contract);
-
-   // arquivo.js
-  console.log('Argumentos:', process.argv.slice(2));
+    switch (process.argv.slice(2)){
+      case "transaction":
+          submitTransaction(contract);
+          break;
+      case "simpleTransactio":
+          submitTransactionSimple(contract);
+          break;
+      case "queryAll":
+          queryAll(contract);
+          break;
+      default:
+        console.log("Argumentos Inválidos!")
+    }
 
 
     // Fecha o gateway e desconecta da rede
