@@ -97,6 +97,24 @@ const queryAll = async (contract) => {
   }
 }
 
+const queryCarByKey = async (contract, key) => {
+  try {
+    const responseBuffer = await contract.evaluateTransaction('queryCar', key);
+    const response = responseBuffer.toString('utf8');
+
+    if (response) {
+      console.log(`Carro com chave ${key} encontrado:`);
+      console.log(response);
+      return response;
+    } else {
+      console.log(`Nenhum carro encontrado com a chave ${key}.`);
+      return null;
+    }
+  } catch (error) {
+    console.error(`Erro ao executar a consulta: ${error}`);
+    throw error;
+  }
+};
 
 
 const main = async () =>{
@@ -126,7 +144,7 @@ const main = async () =>{
     await gateway.connect(ccp, {
       wallet,
       identity: userId,
-      discovery: { enabled: true, asLocalhost: true },
+      discovery: { enabled: true, asLocalhost: false },
     });
 
 
@@ -149,6 +167,10 @@ const main = async () =>{
       case "queryAll":
         queryAll(contract);
         break;
+      case "queryCarByKey":
+          const key = process.argv[3];
+          await queryCarByKey(contract, key);
+          break;
       default:
         console.log("Argumento Inválido!: "+argument);
     }
