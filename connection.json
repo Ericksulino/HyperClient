@@ -17,27 +17,12 @@
             "orderers": [
                 "orderer.example.com"
             ],
-            "peers": {
-                "peer0.org1.example.com": {
-                	"endorsingPeer": true,
-                	"chaincodeQuery": true,
-                	"ledgerQuery": true,
-                	"eventSource": true                   
-                },
-                "peer0.org2.example.com":{
-                    "endorsingPeer": true,
-                	"chaincodeQuery": true,
-                	"ledgerQuery": true,
-                	"eventSource": true  
-                },
-                "peer1.org1.example.com":{
-                    "endorsingPeer": true,
-                	"chaincodeQuery": true,
-                	"ledgerQuery": true,
-                	"eventSource": true  
-                }
+            "peers": [
+                "peer0.org1.example.com",
+                "peer1.org1.example.com",
+                "peer0.org2.example.com"
+              ]
             }
-        }
     },
     "organizations": {
         "Org1MSP": {
@@ -49,6 +34,12 @@
             "certificateAuthorities": [
                 "ca.org1.example.com"
             ]
+        },
+        "Org2": {
+          "mspid": "Org2MSP",
+          "peers": [
+            "peer0.org2.example.com"
+          ]
         }
     },
     "orderers": {
