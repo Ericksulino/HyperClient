@@ -28,7 +28,7 @@ const submitTransaction = async (contract) => {
     transaction.setEndorsingPeers(['peer0.org1.example.com', 'peer1.org1.example.com', 'peer0.org2.example.com']);
 
     // Endossa a proposta de transação
-    const endorsement = await transaction.submit('CAR34', 'VW', 'Polo', 'Grey', 'Mary');
+    const endorsement = await transaction.submit('CAR10s', 'Toyota', 'Supra', 'Orange', 'Brian');
 
     // Verifica se todos os endorsements foram bem sucedidos
     if (endorsement.every(({ response }) => response.status === 200)) {
@@ -52,7 +52,7 @@ const submitTransaction = async (contract) => {
 const submitTransactionSimple = async (contract) => {
   try {
     // Enviando a transação "createCar"
-    await contract.submitTransaction('createCar', 'CAR5', 'Nissan', 'Skyline', 'Silver', 'Brian');
+    await contract.submitTransaction('createCar', 'CAR4', 'Nissan', 'Skyline', 'Silver', 'Brian');
 
     console.log('Transação "createCar" enviada com sucesso.');
 
