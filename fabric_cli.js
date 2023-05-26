@@ -29,6 +29,7 @@ const submitTransaction = async (contract) => {
     const status = await commit.getStatus();
 
     console.log(`Transaction status: ${status}`);
+    console.log(`Transaction results: ${result}`);
   } catch (error) {
     console.error(`Erro ao enviar a transação: ${error}`);
     process.exit(1);
