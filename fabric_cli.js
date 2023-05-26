@@ -21,10 +21,11 @@ const generateRandomHash = () => {
 
 const submitTransactionSimple = async (contract) => {
   try {
+    let hash = generateRandomHash();
     // Enviando a transação "createCar"
-    await contract.submitTransaction('createCar', 'CAR4', 'Nissan', 'Skyline', 'Silver', 'Brian');
+    await contract.submitTransaction('createCar', `${hash}`, 'Toyota', 'Supra', 'Orange', 'Brian');
 
-    console.log('Transação "createCar" enviada com sucesso.');
+    console.log('Transação "createCar":'+hash+' enviada com sucesso.');
 
     process.exit(0); // Encerrando o processo após a exibição da mensagem de sucesso
   } catch (error) {
