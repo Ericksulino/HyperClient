@@ -18,6 +18,22 @@ const generateRandomHash = () => {
   return truncatedHash;
 };
 
+const submitTransactionEndorse = async (contract) => {
+  try {
+    const proposal = contract.newProposal('createCar');
+    proposal.addArgs('CAR404', 'Toyota', 'Supra', 'Orange', 'Brian');
+    const transaction = await proposal.endorse();
+    const commit = await transaction.submit();
+
+    const result = transaction.getResult();
+    const status = await commit.getStatus();
+
+    return { result, status };
+  } catch (error) {
+    console.error(`Erro ao executar a transação: ${error}`);
+    throw error;
+  }
+};
 
 const submitTransactionSimple = async (contract) => {
   try {
@@ -149,6 +165,9 @@ const main = async () =>{
     const argument = process.argv[2];
 
     switch (argument) {
+      case "endorseTransaction":
+        submitTransactionEndorse(contract);
+        break;
       case "submitTransaction":
         submitTransactionSimple(contract);
         break;
