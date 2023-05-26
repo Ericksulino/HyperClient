@@ -25,7 +25,7 @@ const submitTransaction = async (contract) => {
     const transaction = contract.createTransaction('createCar');
 
     // Define os endossadores da transação
-    transaction.setEndorsingPeers(['peer0.org1.example.com', 'peer1.org1.example.com', 'peer0.org2.example.com']);
+    //transaction.setEndorsingPeers(['peer0.org1.example.com', 'peer1.org1.example.com', 'peer0.org2.example.com']);
 
     // Endossa a proposta de transação
     const endorsement = await transaction.submit('CAR11s', 'Toyota', 'Supra', 'Orange', 'Brian');
@@ -33,7 +33,7 @@ const submitTransaction = async (contract) => {
     // Verifica se todos os endorsements foram bem sucedidos
     if (endorsement.every(({ response }) => response.status === 200)) {
       // Espera a transação ser confirmada pela rede
-      await contract.getCommitHandler().waitForEvents(transaction.getTransactionId());
+      //await contract.getCommitHandler().waitForEvents(transaction.getTransactionId());
 
       // Obtém o status da transação confirmada
       const status = await transaction.waitComplete();
