@@ -19,36 +19,6 @@ const generateRandomHash = () => {
 };
 
 
-const submitTransaction = async (contract) => {
-  try {
-    // Cria uma proposta de transação
-    const transaction = contract.createTransaction('createCar');
-
-    // Define os endossadores da transação
-    //transaction.setEndorsingPeers(['peer0.org1.example.com', 'peer1.org1.example.com', 'peer0.org2.example.com']);
-
-    // Endossa a proposta de transação
-    const endorsement = await transaction.submit('CAR11s', 'Toyota', 'Supra', 'Orange', 'Brian');
-
-    // Verifica se todos os endorsements foram bem sucedidos
-    if (endorsement.every(({ response }) => response.status === 200)) {
-      // Espera a transação ser confirmada pela rede
-      //await contract.getCommitHandler().waitForEvents(transaction.getTransactionId());
-
-      // Obtém o status da transação confirmada
-      const status = await transaction.waitComplete();
-
-      console.log(`Transaction status: ${status}`);
-    } else {
-      console.log('A transação foi rejeitada pelos endorsers.');
-    }
-  } catch (error) {
-    console.error(`Erro ao enviar a transação: ${error}`);
-    process.exit(1);
-  }
-};
-
-
 const submitTransactionSimple = async (contract) => {
   try {
     // Enviando a transação "createCar"
@@ -178,10 +148,7 @@ const main = async () =>{
     const argument = process.argv[2];
 
     switch (argument) {
-      case "transaction":
-        submitTransaction(contract);
-        break;
-      case "simpleTransaction":
+      case "submitTransaction":
         submitTransactionSimple(contract);
         break;
       case "submitTransactionMultiple":
