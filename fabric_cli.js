@@ -34,7 +34,7 @@ const submitTransactionEndorse = async (contract) => {
 
     //transaction.setEndorsingPeers(['peer0.org1.example.com', 'peer1.org1.example.com']);
 
-    await transaction.submit(...args);
+    const commit = await transaction.submit(...args);
     console.log('Transação "createCar" "'+hash+'"submetida com sucesso.');
 
     const result = await transaction.waitComplete(commit.getTransactionId());
