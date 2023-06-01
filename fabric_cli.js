@@ -18,7 +18,7 @@ const generateRandomHash = () => {
   return truncatedHash;
 };
 
-const discoverEndorsers = async (gateway) =>{
+const discoverEndorsers = async (contract) =>{
   try{
     // Obter os endorsers disponíveis
     const endorsers = contract.getEndorsingPeers();
