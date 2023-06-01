@@ -1,4 +1,4 @@
-const { Gateway, Wallets ,Endorsement, Endorser} = require('fabric-network');
+const { Gateway, Wallets ,EndorsementPolicy} = require('fabric-network');
 const crypto = require('crypto');
 const path = require('path');
 const fs = require('fs');
@@ -31,15 +31,15 @@ const submitTransactionEndorse = async (contract) => {
       throw new Error('Resposta da avaliação não disponível');
     }
 
-    const endorsers = ['peer0.org1.example.com', 'peer1.org1.example.com'];
+    const endorsementPolicy = new EndorsementPolicy();
+    endorsementPolicy.addOrgs('Org1MSP');
 
-    const endorsedTransaction = transaction.setEndorsingPeers(...endorsers);
-    endorsedTransaction.setEndorsement(new Endorsement());
+    transaction.setEndorsingPeers(endorsementPolicy);
 
-    const commit = await endorsedTransaction.submit(...args);
+    const commit = await transaction.submit(...args);
     console.log('Transação "createCar" submetida com sucesso.');
 
-    const result = endorsedTransaction.getResult();
+    const result = transaction.getResult();
     const status = await commit.getStatus();
 
     return { result, status };
