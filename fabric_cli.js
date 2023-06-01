@@ -1,4 +1,4 @@
-const { Gateway, Wallets} = require('fabric-network');
+const { Gateway, Wallets,DefaultDiscoveryService} = require('fabric-network');
 const crypto = require('crypto');
 const path = require('path');
 const fs = require('fs');
@@ -21,7 +21,7 @@ const generateRandomHash = () => {
 const discoverEndorsers = async (network) =>{
     // Obter os endorsers do chaincode
     const discoveryService = new DefaultDiscoveryService(network);
-    const endorsers = await discoveryService.getPeersForChaincode('chaincodeName');
+    const endorsers = await discoveryService.getPeersForChaincode('fabcar');
 
     console.log('Endorsers encontrados:');
     endorsers.forEach((endorser) => {
