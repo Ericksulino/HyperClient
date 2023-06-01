@@ -35,7 +35,8 @@ const submitTransactionEndorse = async (contract) => {
     console.log('Transação "createCar" submetida com sucesso.');
 
     const result = evaluationResult.toString();
-    const status = await commit.getStatus();
+    await commit.waitTransactionComplete();
+    const status = commit.getStatus();
 
     return { result, status };
   } catch (error) {
