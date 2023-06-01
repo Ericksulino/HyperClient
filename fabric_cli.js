@@ -19,17 +19,16 @@ const generateRandomHash = () => {
 };
 
 const discoverEndorsers = async (ccp,contract) =>{
+  try{
+    const discoveryResults = await network.getDiscoveryResults();
 
-    // Obter os endorsers do chaincode
-    const peers = await contract.getDiscoveryPeers();
-    
+    // Extrair os endorsers descobertos
+    const peers = discoveryResults.getPeers();
     console.log('Peers endorsers encontrados:');
     console.log(peers);
-
-    console.log('Endorsers encontrados:');
-    endorsers.forEach((endorser) => {
-        console.log(endorser.name);
-    });
+  }catch (error) {
+    console.error('Erro ao descobrir os peers endorsers:', error);
+  }
 }
 
 
