@@ -31,13 +31,10 @@ const submitTransactionEndorse = async (contract) => {
       throw new Error('Resposta da avaliação não disponível');
     }
 
-    const endorsementPolicy = new EndorsementPolicy();
-    endorsementPolicy.addOrgs('Org1MSP');
-
     const endorsers = ['peer0.org1.example.com', 'peer1.org1.example.com'];
 
     const endorsedTransaction = transaction.setEndorsingPeers(...endorsers);
-    endorsedTransaction.setEndorsementPolicy(endorsementPolicy);
+    endorsedTransaction.setEndorsement(new Endorsement());
 
     const commit = await endorsedTransaction.submit(...args);
     console.log('Transação "createCar" submetida com sucesso.');
