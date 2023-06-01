@@ -31,7 +31,14 @@ const submitTransactionEndorse = async (contract) => {
       throw new Error('Resposta da avaliação não disponível');
     }
 
-    const endorsement = new Endorsement(transaction);
+    const proposal = contract.newProposal('createCar');
+    proposal.build();
+    
+    const endorsementPolicy = new EndorsementPolicy();
+    endorsementPolicy.addOrgs('Org1MSP');
+
+    const endorsement = new Endorsement();
+    endorsement.setPolicy(endorsementPolicy);
     endorsement.build();
 
     const endorser1 = new Endorser('peer0.org1.example.com');
@@ -39,7 +46,9 @@ const submitTransactionEndorse = async (contract) => {
     endorsement.addEndorser(endorser1);
     endorsement.addEndorser(endorser2);
 
-    const endorsedProposal = endorsement.endorse();
+    proposal.addEndorsement(endorsement);
+
+    const endorsedProposal = proposal.endorse();
 
     const commit = await endorsedProposal.submit(...args);
     console.log('Transação "createCar" submetida com sucesso.');
