@@ -18,10 +18,15 @@ const generateRandomHash = () => {
   return truncatedHash;
 };
 
-const discoverEndorsers = async (network) =>{
+const discoverEndorsers = async (ccp,contract) =>{
+    // Configurar o serviço de descoberta padrão
+    await DefaultDiscoveryService.create(ccp);
+
     // Obter os endorsers do chaincode
-    const discoveryService = new DefaultDiscoveryService(network);
-    const endorsers = await discoveryService.getPeersForChaincode('fabcar');
+    const peers = await contract.getDiscoveryPeers();
+    
+    console.log('Peers endorsers encontrados:');
+    console.log(peers);
 
     console.log('Endorsers encontrados:');
     endorsers.forEach((endorser) => {
@@ -186,7 +191,7 @@ const main = async () =>{
 
     switch (argument) {
       case "discoverEndorsers":
-        discoverEndorsers(network);
+        discoverEndorsers(ccp,contract);
         break
       case "endorseTransaction":
         submitTransactionEndorse(contract);
