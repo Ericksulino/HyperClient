@@ -31,15 +31,12 @@ const submitTransactionEndorse = async (contract) => {
       throw new Error('Resposta da avaliação não disponível');
     }
 
-    const endorsedProposal = transaction.endorse();
-    console.log('Transação "createCar" endossada com sucesso.');
-
-    const commit = await endorsedProposal.submit();
+    const commit = await transaction.submit(...args);
     console.log('Transação "createCar" submetida com sucesso.');
 
     const result = endorsedProposal.getResult();
     const status = await commit.getStatus();
-  
+    return { result, status };
   } catch (error) {
     console.error(`Erro ao executar a transação: ${error}`);
     throw error;
