@@ -23,10 +23,10 @@ const submitTransactionEndorse = async (contract) => {
     const transaction = contract.createTransaction('createCar');
     const args = ['CAR405', 'Toyota', 'Supra', 'Orange', 'Brian'];
 
-    const proposalResponse = await transaction.evaluate(...args);
-    if (proposalResponse) {
+    const evaluationResult = await transaction.evaluate(...args);
+    if (evaluationResult) {
       console.log('Transação "createCar" avaliada com sucesso.');
-      console.log('Resposta da avaliação:', proposalResponse);
+      console.log('Resposta da avaliação:', evaluationResult.toString());
     } else {
       throw new Error('Resposta da avaliação não disponível');
     }
@@ -34,7 +34,7 @@ const submitTransactionEndorse = async (contract) => {
     const commit = await transaction.submit(...args);
     console.log('Transação "createCar" submetida com sucesso.');
 
-    const result = transaction.getResult();
+    const result = evaluationResult.toString();
     const status = await commit.getStatus();
 
     return { result, status };
