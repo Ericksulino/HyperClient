@@ -20,8 +20,9 @@ const generateRandomHash = () => {
 
 const submitTransactionEndorse = async (contract) => {
   try {
+    let hash = generateRandomHash();
     const transaction = contract.createTransaction('createCar');
-    const args = ['CAR405', 'Toyota', 'Supra', 'Orange', 'Brian'];
+    const args = [`${hash}`, 'Toyota', 'Supra', 'Orange', 'Brian'];
 
     const evaluationResult = await transaction.evaluate(...args);
     if (evaluationResult) {
@@ -31,7 +32,7 @@ const submitTransactionEndorse = async (contract) => {
     }
 
     const commit = await transaction.submit(...args);
-    console.log('Transação "createCar" submetida com sucesso.');
+    console.log('Transação "createCar" "'+hash+'"submetida com sucesso.');
 
     process.exit(0); // Encerrando o processo após a exibição da mensagem de sucesso
   } catch (error) {
