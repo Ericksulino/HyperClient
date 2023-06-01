@@ -20,15 +20,26 @@ const generateRandomHash = () => {
 
 const submitTransactionEndorse = async (contract) => {
   try {
-    const proposal = contract.newProposal('createCar');
-    proposal.addArgs('CAR404', 'Toyota', 'Supra', 'Orange', 'Brian');
-    const transaction = await proposal.endorse();
-    const commit = await transaction.submit();
+    const transaction = contract.createTransaction('createCar');
+    transaction.setTransient('CAR404', 'Toyota', 'Supra', 'Orange', 'Brian');
 
-    const result = transaction.getResult();
+    const proposalResponse = await transaction.evaluate();
+    if (proposalResponse) {
+      console.log('Transação "createCar" avaliada com sucesso.');
+      console.log('Resposta da avaliação:', proposalResponse);
+    } else {
+      throw new Error('Resposta da avaliação não disponível');
+    }
+
+    const endorsedProposal = transaction.endorse();
+    console.log('Transação "createCar" endossada com sucesso.');
+
+    const commit = await endorsedProposal.submit();
+    console.log('Transação "createCar" submetida com sucesso.');
+
+    const result = endorsedProposal.getResult();
     const status = await commit.getStatus();
-
-    return { result, status };
+  
   } catch (error) {
     console.error(`Erro ao executar a transação: ${error}`);
     throw error;
