@@ -3,11 +3,6 @@ const crypto = require('crypto');
 const path = require('path');
 const fs = require('fs');
 
-// Configurações de conexão com a rede
-const ccpPath = path.resolve(__dirname, 'connection.json');
-const walletPath = path.resolve(__dirname, 'wallet');
-const userId = 'User1@org1.example.com';
-
 
 // Função para gerar um hash aleatório
 const generateRandomHash = () => {
@@ -135,6 +130,11 @@ const queryCarByKey = async (contract, key) => {
 
 const main = async () =>{
   try {
+    // Configurações de conexão com a rede
+    const ccpPath = path.resolve(__dirname, 'connection.json');
+    const walletPath = path.resolve(__dirname, 'wallet');
+    const userId = 'User1@org1.example.com';
+    
     // Cria uma instância da classe Gateway
     const gateway = new Gateway();
 
