@@ -1,4 +1,4 @@
-const { Gateway, Wallets} = require('fabric-network');
+const { Gateway, Wallets} = require('fabric-gateway');
 const crypto = require('crypto');
 const path = require('path');
 const fs = require('fs');
@@ -134,7 +134,7 @@ const main = async () =>{
     const ccpPath = path.resolve(__dirname, 'connection.json');
     const walletPath = path.resolve(__dirname, 'wallet');
     const userId = 'User1@org1.example.com';
-    
+
     // Cria uma instância da classe Gateway
     const gateway = new Gateway();
 
