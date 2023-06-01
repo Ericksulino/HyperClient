@@ -20,12 +20,11 @@ const generateRandomHash = () => {
 
 const discoverEndorsers = async (gateway) =>{
   try{
-    const discoveryResults = await gateway.getDiscoveryResults();
+    // Obter os endorsers disponíveis
+    const endorsers = contract.getEndorsingPeers();
 
-    // Extrair os endorsers descobertos
-    const peers = discoveryResults.getPeers();
     console.log('Peers endorsers encontrados:');
-    console.log(peers);
+    console.log(endorsers);
   }catch (error) {
     console.error('Erro ao descobrir os peers endorsers:', error);
   }
@@ -188,7 +187,7 @@ const main = async () =>{
 
     switch (argument) {
       case "discoverEndorsers":
-        discoverEndorsers(gateway);
+        discoverEndorsers(contract);
         break
       case "endorseTransaction":
         submitTransactionEndorse(contract);
