@@ -18,6 +18,18 @@ const generateRandomHash = () => {
   return truncatedHash;
 };
 
+const discoverEndorsers = async (network) =>{
+    // Obter os endorsers do chaincode
+    const discoveryService = new DefaultDiscoveryService(network);
+    const endorsers = await discoveryService.getPeersForChaincode('chaincodeName');
+
+    console.log('Endorsers encontrados:');
+    endorsers.forEach((endorser) => {
+        console.log(endorser.name);
+    });
+}
+
+
 const submitTransactionEndorse = async (contract) => {
   try {
     let hash = generateRandomHash();
@@ -173,6 +185,9 @@ const main = async () =>{
     const argument = process.argv[2];
 
     switch (argument) {
+      case "discoverEndorsers":
+        discoverEndorsers(network);
+        break
       case "endorseTransaction":
         submitTransactionEndorse(contract);
         break;
