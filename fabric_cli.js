@@ -21,7 +21,13 @@ const generateRandomHash = () => {
 const submitTransactionEndorse = async (contract) => {
   try {
     const transaction = contract.createTransaction('createCar');
-    transaction.setTransient('CAR404', 'Toyota', 'Supra', 'Orange', 'Brian');
+    transaction.setTransient({
+      CAR_ID: 'CAR404',
+      MAKE: 'Toyota',
+      MODEL: 'Supra',
+      COLOR: 'Orange',
+      OWNER: 'Brian'
+    });
 
     const proposalResponse = await transaction.evaluate();
     if (proposalResponse) {
