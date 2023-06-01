@@ -21,9 +21,9 @@ const generateRandomHash = () => {
 const submitTransactionEndorse = async (contract) => {
   try {
     const transaction = contract.createTransaction('createCar');
-    transaction.setArgs('CAR404', 'Toyota', 'Supra', 'Orange', 'Brian');
+    const args = ['CAR404', 'Toyota', 'Supra', 'Orange', 'Brian'];
 
-    const proposalResponse = await transaction.evaluate();
+    const proposalResponse = await transaction.evaluate(...args);
     if (proposalResponse) {
       console.log('Transação "createCar" avaliada com sucesso.');
       console.log('Resposta da avaliação:', proposalResponse);
