@@ -31,7 +31,9 @@ const submitTransactionEndorse = async (contract) => {
       throw new Error('Resposta da avaliação não disponível');
     }
 
-    const commit = await transaction.submit(...args);
+    transaction.setEndorsingPeers(['peer0.org1.example.com', 'peer1.org1.example.com']);
+
+    await transaction.submit(...args);
     console.log('Transação "createCar" "'+hash+'"submetida com sucesso.');
 
     process.exit(0); // Encerrando o processo após a exibição da mensagem de sucesso
