@@ -1,4 +1,4 @@
-const { Gateway, Wallets,DefaultDiscoveryService} = require('fabric-network');
+const { Gateway, Wallets} = require('fabric-network');
 const crypto = require('crypto');
 const path = require('path');
 const fs = require('fs');
@@ -18,18 +18,6 @@ const generateRandomHash = () => {
   return truncatedHash;
 };
 
-const discoverEndorsers = async (contract) =>{
-  try{
-    // Obter os endorsers disponíveis
-    const endorsers = contract.getEndorsingPeers();
-
-    console.log('Peers endorsers encontrados:');
-    console.log(endorsers);
-  }catch (error) {
-    console.error('Erro ao descobrir os peers endorsers:', error);
-  }
-}
-
 
 const submitTransactionEndorse = async (contract) => {
   try {
@@ -44,12 +32,17 @@ const submitTransactionEndorse = async (contract) => {
       throw new Error('Resposta da avaliação não disponível');
     }
 
-    transaction.setEndorsingPeers(['peer0.org1.example.com', 'peer1.org1.example.com']);
+    //transaction.setEndorsingPeers(['peer0.org1.example.com', 'peer1.org1.example.com']);
 
     await transaction.submit(...args);
     console.log('Transação "createCar" "'+hash+'"submetida com sucesso.');
 
-    process.exit(0); // Encerrando o processo após a exibição da mensagem de sucesso
+    const result = await transaction.waitComplete(commit.getTransactionId());
+    const status = result.status;
+
+    console.log('Status da transação:', status);
+
+    //process.exit(0); // Encerrando o processo após a exibição da mensagem de sucesso
   } catch (error) {
     console.error(`Erro ao executar a transação: ${error}`);
     throw error;
@@ -186,9 +179,6 @@ const main = async () =>{
     const argument = process.argv[2];
 
     switch (argument) {
-      case "discoverEndorsers":
-        discoverEndorsers(contract);
-        break
       case "endorseTransaction":
         submitTransactionEndorse(contract);
         break;
