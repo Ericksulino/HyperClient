@@ -31,10 +31,15 @@ const submitTransactionEndorse = async (contract) => {
       throw new Error('Resposta da avaliação não disponível');
     }
 
-    const endorsement = contract.newEndorsement(transaction);
-    endorsement.setEndorsingPeers(["peer0.org1.example.com", "peer1.org1.example.com"]);
+    const endorsement = new Endorsement(transaction);
+    endorsement.build();
 
-    const endorsedProposal = endorsement.send();
+    const endorser1 = new Endorser('peer0.org1.example.com');
+    const endorser2 = new Endorser('peer1.org1.example.com');
+    endorsement.addEndorser(endorser1);
+    endorsement.addEndorser(endorser2);
+
+    const endorsedProposal = endorsement.endorse();
 
     const commit = await endorsedProposal.submit(...args);
     console.log('Transação "createCar" submetida com sucesso.');
@@ -42,7 +47,7 @@ const submitTransactionEndorse = async (contract) => {
     const result = endorsedProposal.getResult();
     const status = await commit.getStatus();
 
-    return { result, status }
+    return { result, status };
   } catch (error) {
     console.error(`Erro ao executar a transação: ${error}`);
     throw error;
