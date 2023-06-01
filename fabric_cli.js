@@ -1,4 +1,4 @@
-const { Gateway, Wallets ,EndorsementPolicy} = require('fabric-network');
+const { Gateway, Wallets} = require('fabric-network');
 const crypto = require('crypto');
 const path = require('path');
 const fs = require('fs');
@@ -30,11 +30,6 @@ const submitTransactionEndorse = async (contract) => {
     } else {
       throw new Error('Resposta da avaliação não disponível');
     }
-
-    const endorsementPolicy = new EndorsementPolicy();
-    endorsementPolicy.addOrgs('Org1MSP');
-
-    transaction.setEndorsingPeers(endorsementPolicy);
 
     const commit = await transaction.submit(...args);
     console.log('Transação "createCar" submetida com sucesso.');
