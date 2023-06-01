@@ -18,7 +18,7 @@ const generateRandomHash = () => {
   return truncatedHash;
 };
 
-const discoverEndorsers = async (ccp,contract) =>{
+const discoverEndorsers = async (network) =>{
   try{
     const discoveryResults = await network.getDiscoveryResults();
 
@@ -188,7 +188,7 @@ const main = async () =>{
 
     switch (argument) {
       case "discoverEndorsers":
-        discoverEndorsers(ccp,contract);
+        discoverEndorsers(network);
         break
       case "endorseTransaction":
         submitTransactionEndorse(contract);
