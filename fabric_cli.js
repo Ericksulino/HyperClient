@@ -37,9 +37,9 @@ const submitTransactionEndorse = async (contract) => {
     const commit = await transaction.submit(...args);
     console.log('Transação "createCar" "'+hash+'"submetida com sucesso.');
 
-    const result = await transaction.waitComplete(commit.transactionId);
-    const status = result.status;
+    await commit.wait(); // Aguarda a conclusão da transação
 
+    const status = commit.getStatus();
     console.log('Status da transação:', status);
 
     //process.exit(0); // Encerrando o processo após a exibição da mensagem de sucesso
