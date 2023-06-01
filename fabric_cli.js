@@ -18,9 +18,9 @@ const generateRandomHash = () => {
   return truncatedHash;
 };
 
-const discoverEndorsers = async (network) =>{
+const discoverEndorsers = async (gateway) =>{
   try{
-    const discoveryResults = await network.getDiscoveryResults();
+    const discoveryResults = await gateway.getDiscoveryResults();
 
     // Extrair os endorsers descobertos
     const peers = discoveryResults.getPeers();
@@ -188,7 +188,7 @@ const main = async () =>{
 
     switch (argument) {
       case "discoverEndorsers":
-        discoverEndorsers(network);
+        discoverEndorsers(gateway);
         break
       case "endorseTransaction":
         submitTransactionEndorse(contract);
