@@ -19,8 +19,6 @@ const generateRandomHash = () => {
 };
 
 const discoverEndorsers = async (ccp,contract) =>{
-    // Configurar o serviço de descoberta padrão
-    await DefaultDiscoveryService.create(ccp);
 
     // Obter os endorsers do chaincode
     const peers = await contract.getDiscoveryPeers();
