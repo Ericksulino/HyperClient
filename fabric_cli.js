@@ -34,15 +34,10 @@ const submitTransactionEndorse = async (contract) => {
 
     //transaction.setEndorsingPeers(['peer0.org1.example.com', 'peer1.org1.example.com']);
 
-    const commit = await transaction.submit(...args);
+    await transaction.submit(...args);
     console.log('Transação "createCar" "'+hash+'"submetida com sucesso.');
 
-    await commit.wait(); // Aguarda a conclusão da transação
-
-    const status = commit.getStatus();
-    console.log('Status da transação:', status);
-
-    //process.exit(0); // Encerrando o processo após a exibição da mensagem de sucesso
+    process.exit(0); // Encerrando o processo após a exibição da mensagem de sucesso
   } catch (error) {
     console.error(`Erro ao executar a transação: ${error}`);
     throw error;
