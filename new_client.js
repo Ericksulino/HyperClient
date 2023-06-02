@@ -1,5 +1,5 @@
 const crypto = require('crypto');
-const { connect, Identity, signers } = require('@hyperledger/fabric-gateway');
+const { connect, Identity, signers } = require('fabric-gateway');
 const { promises, as,fs } = require ('fs');
 const { TextDecoder } = require('util');
 
