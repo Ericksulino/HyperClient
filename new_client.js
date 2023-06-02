@@ -1,8 +1,7 @@
-import * as grpc from '@grpc/grpc-js';
-import * as crypto from 'crypto';
-import { connect, Identity, signers } from '@hyperledger/fabric-gateway';
-import { promises as fs } from 'fs';
-import { TextDecoder } from 'util';
+const crypto = require('crypto');
+const { connect, Identity, signers } = require('@hyperledger/fabric-gateway');
+const { promises, as,fs } = require ('fs');
+const { TextDecoder } = require('util');
 
 const utf8Decoder = new TextDecoder();
 
