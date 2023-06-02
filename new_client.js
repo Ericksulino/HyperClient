@@ -1,11 +1,12 @@
 const crypto = require('crypto');
-const { connect, Identity, signers } = require('fabric-gateway');
-const { readFileSync } = require ('fs');
+const { connect, signers } = require('fabric-gateway');
+const { readFileSync } = require('fs');
 const { TextDecoder } = require('util');
+const grpc = require('@grpc/grpc-js');
 
 const utf8Decoder = new TextDecoder();
 
-async function main(){
+async function main() {
     const credentials = readFileSync('../peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/signcerts/User1@org1.example.com-cert.pem');
     const identity = { mspId: 'Org1MSP', credentials };
 
@@ -15,7 +16,7 @@ async function main(){
 
     const client = new grpc.Client('gateway.example.org:1337', grpc.credentials.createInsecure());
 
-    const gateway = connect({ identity, signer, client });
+    const gateway = await connect({ identity, signer, client });
     try {
         const network = gateway.getNetwork('mychannel');
         const contract = network.getContract('fabcar');
@@ -27,7 +28,7 @@ async function main(){
         console.log('Get result:', utf8Decoder.decode(getResult));
     } finally {
         gateway.close();
-        client.close()
+        client.close();
     }
 }
 
