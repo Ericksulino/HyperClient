@@ -136,7 +136,7 @@ const main = async () =>{
     const userId = 'User1@org1.example.com';
 
     // Cria uma instância da classe Gateway
-    const gateway = new Gateway();
+    const gateway = Gateway.create();
 
     // Carrega as configurações de conexão com a rede
     const ccp = JSON.parse(fs.readFileSync(ccpPath, 'utf8'));
