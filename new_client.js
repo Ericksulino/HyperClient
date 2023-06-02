@@ -1,15 +1,15 @@
 const crypto = require('crypto');
 const { connect, Identity, signers } = require('fabric-gateway');
-const fs = require('fs').promises;
+import { readFileSync } from 'fs';;
 const { TextDecoder } = require('util');
 
 const utf8Decoder = new TextDecoder();
 
 async function main(){
-    const credentials = await fs.readFile('../peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/signcerts/User1@org1.example.com-cert.pem');
+    const credentials = readFileSync('../peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/signcerts/User1@org1.example.com-cert.pem');
     const identity = { mspId: 'Org1MSP', credentials };
 
-    const privateKeyPem = await fs.readFile('../peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/keystore/priv_sk');
+    const privateKeyPem = readFileSync('../peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/keystore/priv_sk');
     const privateKey = crypto.createPrivateKey(privateKeyPem);
     const signer = signers.newPrivateKeySigner(privateKey);
 
