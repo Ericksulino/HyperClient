@@ -1,6 +1,6 @@
 const crypto = require('crypto');
 const { connect, Identity, signers } = require('fabric-gateway');
-import { readFileSync } from 'fs';;
+const { readFileSync } = require ('fs');
 const { TextDecoder } = require('util');
 
 const utf8Decoder = new TextDecoder();
