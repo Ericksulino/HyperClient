@@ -1,6 +1,6 @@
 const crypto = require('crypto');
 const { connect, Identity, signers } = require('fabric-gateway');
-const { promises, as,fs } = require ('fs');
+const { fs } = require ('fs');
 const { TextDecoder } = require('util');
 
 const utf8Decoder = new TextDecoder();
