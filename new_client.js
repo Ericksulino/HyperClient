@@ -17,8 +17,8 @@ async function main(){
 
     const gateway = connect({ identity, signer, client });
     try {
-        const network = gateway.getNetwork('channelName');
-        const contract = network.getContract('chaincodeName');
+        const network = gateway.getNetwork('mychannel');
+        const contract = network.getContract('fabcar');
 
         const putResult = await contract.submitTransaction('put', 'time', new Date().toISOString());
         console.log('Put result:', utf8Decoder.decode(putResult));
