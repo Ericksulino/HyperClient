@@ -45,7 +45,7 @@
     },
     "orderers": {
         "orderer.example.com": {
-            "url": "grpcs://orderer.example.com:7050",
+            "url": "grpcs://localhost:7050",
             "grpcOptions": {
                 "ssl-target-name-override": "orderer.example.com",
                 "hostnameOverride": "orderer.example.com"
