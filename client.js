@@ -160,7 +160,7 @@ const main = async () =>{
     await gateway.connect(ccp, {
       wallet,
       identity: userId,
-      discovery: { enabled: true, asLocalhost: true},
+      discovery: { enabled: true, asLocalhost: false},
     });
 
 
