@@ -3,7 +3,9 @@ const crypto = require('crypto');
 const path = require('path');
 const fs = require('fs');
 
-const functions = ["InitLedger","createCar","queryAllCars","queryCar"]
+//const functions = ["InitLedger","createCar","queryAllCars","queryCar"];
+
+const functions = ["InitLedger","createCar","GetAllAssets","ReadAsset"];
 
 // Função para gerar um hash aleatório
 const generateRandomHash = () => {
@@ -13,6 +15,27 @@ const generateRandomHash = () => {
   const truncatedHash = hash.substring(0, 5); // Extrai os primeiros 5 caracteres do hash
   return truncatedHash;
 };
+
+const initLedger = async (contract) => {
+  try {
+    // Enviando a transação "queryAllCars"
+    const responseBuffer = await contract.evaluateTransaction(functions[0]);
+    const response = responseBuffer.toString('utf8');
+
+    // Verificando se a resposta está vazia
+    if (response) {
+      console.log('Função "InitLedger" executada com sucesso.');
+
+    } else {
+      console.log('Nenhum resultado retornado pela Função.');
+    }
+
+    process.exit(0); // Encerrando o processo após a exibição da resposta
+  } catch (error) {
+    console.error(`Erro ao executar a Função ${error}`);
+    process.exit(1);
+  }
+}
 
 
 const submitTransactionEndorse = async (contract) => {
@@ -109,7 +132,7 @@ const queryAll = async (contract) => {
   }
 }
 
-const queryCarByKey = async (contract, key) => {
+const queryByKey = async (contract, key) => {
   try {
     const responseBuffer = await contract.evaluateTransaction(functions[3], key);
     const response = responseBuffer.toString('utf8');
@@ -176,6 +199,9 @@ const main = async () =>{
     const argument = process.argv[2];
 
     switch (argument) {
+      case "initLedger":
+        initLedger(contract);
+        break;
       case "endorseTransaction":
         submitTransactionEndorse(contract);
         break;
@@ -191,7 +217,7 @@ const main = async () =>{
         break;
       case "queryCarByKey":
           const key = process.argv[3];
-          await queryCarByKey(contract, key);
+          await queryByKey(contract, key);
           break;
       default:
         console.log("Argumento Inválido!: "+argument);
