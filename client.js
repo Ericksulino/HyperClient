@@ -5,7 +5,7 @@ const fs = require('fs');
 
 //const functions = ["InitLedger","createCar","queryAllCars","queryCar"];
 
-const functions = ["InitLedger","createCar","GetAllAssets","ReadAsset"];
+const functions = ["InitLedger","TransferAsset","GetAllAssets","ReadAsset"];
 
 // Função para gerar um hash aleatório
 const generateRandomHash = () => {
@@ -61,7 +61,7 @@ const submitTransactionById = async (contract, id, newOwner) => {
   
     await contract.submitTransaction(functions[1], `${id}`, `${newOwner}`);
 
-    console.log('Transação "'+functions[1]+'":'+hash+' enviada com sucesso.');
+    console.log(''+id+' transferido para '+newOwner+' com sucesso.');
 
     process.exit(0); // Encerrando o processo após a exibição da mensagem de sucesso
   } catch (error) {
@@ -125,7 +125,7 @@ const queryAll = async (contract) => {
       const cars = JSON.parse(response);
 
       // Exibindo os dados dos carros
-      console.log('Lista de carros:');
+      console.log('Lista de Assets:');
       cars.forEach((car) => {
         console.log(' -', car);
       });
