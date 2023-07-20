@@ -37,7 +37,7 @@ const createAssetEndorse = async (contract) => {
     const transaction = contract.createTransaction(functions[4]);
     const args = [`${hash}`, 'Orange', 'Supra', 'Brian', '10'];
 
-    transaction.setEndorsingPeers(['peer0.org1.example.com', 'peer1.org1.example.com']);
+    transaction.setEndorsingPeers(['peer0.org1.example.com']);
 
     await transaction.submit(...args);
     console.log('Transação "'+functions[4]+'" "'+hash+'"submetida com sucesso.');
