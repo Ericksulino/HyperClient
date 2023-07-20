@@ -21,7 +21,7 @@ const initLedger = async (contract) => {
   
     await contract.submitTransaction(functions[0]);
 
-    console.log('Função "'+functions[0]+'":'+hash+' executada com sucesso.');
+    console.log('Função "'+functions[0]+'" executada com sucesso.');
 
     process.exit(0); // Encerrando o processo após a exibição da mensagem de sucesso
   } catch (error) {
