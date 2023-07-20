@@ -31,23 +31,16 @@ const initLedger = async (contract) => {
 }
 
 
-const submitTransactionEndorse = async (contract) => {
+const createAssetEndorse = async (contract) => {
   try {
     let hash = generateRandomHash();
-    const transaction = contract.createTransaction(functions[1]);
-    const args = [`${hash}`, 'Toyota', 'Supra', 'Orange', 'Brian'];
+    const transaction = contract.createTransaction(functions[4]);
+    const args = [`${hash}`, 'Orange', 'Supra', 'Brian', '10'];
 
-    const evaluationResult = await transaction.evaluate(...args);
-    if (evaluationResult) {
-      console.log('Transação "'+functions[1]+'" avaliada com sucesso.');
-    } else {
-      throw new Error('Resposta da avaliação não disponível');
-    }
-
-    //transaction.setEndorsingPeers(['peer0.org1.example.com', 'peer1.org1.example.com']);
+    transaction.setEndorsingPeers(['peer0.org1.example.com', 'peer1.org1.example.com']);
 
     await transaction.submit(...args);
-    console.log('Transação "'+functions[1]+'" "'+hash+'"submetida com sucesso.');
+    console.log('Transação "'+functions[4]+'" "'+hash+'"submetida com sucesso.');
 
     process.exit(0); // Encerrando o processo após a exibição da mensagem de sucesso
   } catch (error) {
@@ -215,8 +208,8 @@ const main = async () =>{
         const newOwner = process.argv[4];
         submitTransactionById(contract, id, newOwner);
         break;
-      case "endorseTransaction":
-        submitTransactionEndorse(contract);
+      case "endorseAsset":
+        createAssetEndorse(contract);
         break;
       case "createAsset":
         createAssetSimple(contract);
