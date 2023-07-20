@@ -18,21 +18,14 @@ const generateRandomHash = () => {
 
 const initLedger = async (contract) => {
   try {
-    // Enviando a transação "queryAllCars"
-    const responseBuffer = await contract.evaluateTransaction(functions[0]);
-    const response = responseBuffer.toString('utf8');
+  
+    await contract.submitTransaction(functions[0]);
 
-    // Verificando se a resposta está vazia
-    if (response) {
-      console.log('Função "InitLedger" executada com sucesso.');
+    console.log('Função "'+functions[0]+'":'+hash+' executada com sucesso.');
 
-    } else {
-      console.log('Nenhum resultado retornado pela Função.');
-    }
-
-    process.exit(0); // Encerrando o processo após a exibição da resposta
+    process.exit(0); // Encerrando o processo após a exibição da mensagem de sucesso
   } catch (error) {
-    console.error(`Erro ao executar a Função ${error}`);
+    console.error(`Erro ao enviar a transação: ${error}`);
     process.exit(1);
   }
 }
