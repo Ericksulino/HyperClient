@@ -5,7 +5,7 @@ const fs = require('fs');
 
 //const functions = ["InitLedger","createCar","queryAllCars","queryCar"];
 
-const functions = ["InitLedger","TransferAsset","GetAllAssets","ReadAsset"];
+const functions = ["InitLedger","TransferAsset","GetAllAssets","ReadAsset","CreateAsset"];
 
 // Função para gerar um hash aleatório
 const generateRandomHash = () => {
@@ -75,7 +75,7 @@ const createAssetSimple = async (contract) => {
   try {
     let hash = generateRandomHash();
     // Enviando a transação "createCar"
-    await contract.submitTransaction(functions[1], `${hash}`, 'Toyota', 'Supra', 'Orange', 'Brian');
+    await contract.submitTransaction(functions[4], `${hash}`, 'Toyota', 'Supra', 'Orange', 'Brian');
 
     console.log('Transação "'+functions[1]+'":'+hash+' enviada com sucesso.');
 
