@@ -3,6 +3,7 @@ const crypto = require('crypto');
 const path = require('path');
 const fs = require('fs');
 
+const functions = ["InitLedger","createCar","queryAllCars","queryCar"]
 
 // Função para gerar um hash aleatório
 const generateRandomHash = () => {
@@ -17,7 +18,7 @@ const generateRandomHash = () => {
 const submitTransactionEndorse = async (contract) => {
   try {
     let hash = generateRandomHash();
-    const transaction = contract.createTransaction('createCar');
+    const transaction = contract.createTransaction(functions[1]);
     const args = [`${hash}`, 'Toyota', 'Supra', 'Orange', 'Brian'];
 
     const evaluationResult = await transaction.evaluate(...args);
@@ -43,7 +44,7 @@ const submitTransactionSimple = async (contract) => {
   try {
     let hash = generateRandomHash();
     // Enviando a transação "createCar"
-    await contract.submitTransaction('createCar', `${hash}`, 'Toyota', 'Supra', 'Orange', 'Brian');
+    await contract.submitTransaction(functions[1], `${hash}`, 'Toyota', 'Supra', 'Orange', 'Brian');
 
     console.log('Transação "createCar":'+hash+' enviada com sucesso.');
 
@@ -65,7 +66,7 @@ const submitTransactionMultiple = async (contract, n) => {
     for (let i = 0; i < n; i++) {
       let hash = generateRandomHash();
       // Enviando a transação "createCar"
-      await contract.submitTransaction('createCar', `${hash}`, 'Nissan', 'Skyline', 'Silver', 'Brian');
+      await contract.submitTransaction(functions[1], `${hash}`, 'Nissan', 'Skyline', 'Silver', 'Brian');
       console.log(`${i + 1} Transação "createCar" :${hash} enviada com sucesso.`);
     }
 
@@ -82,7 +83,7 @@ const submitTransactionMultiple = async (contract, n) => {
 const queryAll = async (contract) => {
   try {
     // Enviando a transação "queryAllCars"
-    const responseBuffer = await contract.evaluateTransaction('queryAllCars');
+    const responseBuffer = await contract.evaluateTransaction(functions[2]);
     const response = responseBuffer.toString('utf8');
 
     // Verificando se a resposta está vazia
@@ -110,7 +111,7 @@ const queryAll = async (contract) => {
 
 const queryCarByKey = async (contract, key) => {
   try {
-    const responseBuffer = await contract.evaluateTransaction('queryCar', key);
+    const responseBuffer = await contract.evaluateTransaction(functions[3], key);
     const response = responseBuffer.toString('utf8');
 
     if (response) {
@@ -168,7 +169,8 @@ const main = async () =>{
 
     // Obtém a rede e o contrato inteligente (chaincode)
     const network = await gateway.getNetwork('mychannel');
-    const contract = network.getContract('fabcar');
+    //const contract = network.getContract('fabcar');
+    const contract = network.getContract('basic');
 
 
     const argument = process.argv[2];
