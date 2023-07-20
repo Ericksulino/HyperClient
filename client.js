@@ -56,7 +56,22 @@ const submitTransactionEndorse = async (contract) => {
   }
 };
 
-const submitTransactionSimple = async (contract) => {
+const submitTransactionById = async (contract, id, newOwner) => {
+  try {
+  
+    await contract.submitTransaction(functions[1], `${id}`, `${newOwner}`);
+
+    console.log('Transação "'+functions[1]+'":'+hash+' enviada com sucesso.');
+
+    process.exit(0); // Encerrando o processo após a exibição da mensagem de sucesso
+  } catch (error) {
+    console.error(`Erro ao enviar a transação: ${error}`);
+    process.exit(1);
+  }
+};
+
+
+const createAssetSimple = async (contract) => {
   try {
     let hash = generateRandomHash();
     // Enviando a transação "createCar"
@@ -72,7 +87,7 @@ const submitTransactionSimple = async (contract) => {
 };
 
 
-const submitTransactionMultiple = async (contract, n) => {
+const createAssetMultiple = async (contract, n) => {
   try {
     
     if (!n) {
@@ -195,20 +210,25 @@ const main = async () =>{
       case "initLedger":
         initLedger(contract);
         break;
+      case "submitTransaction":
+        const id = process.argv[3];
+        const newOwner = process.argv[4];
+        submitTransaction(contract, id, newOwner);
+        break;
       case "endorseTransaction":
         submitTransactionEndorse(contract);
         break;
-      case "submitTransaction":
-        submitTransactionSimple(contract);
+      case "createAsset":
+        createAssetSimple(contract);
         break;
-      case "submitTransactionMultiple":
+      case "createAssetMultiple":
         const n = parseInt(process.argv[3]);
-        await submitTransactionMultiple(contract, n);
+        await createAssetMultiple(contract, n);
         break;
       case "queryAll":
         queryAll(contract);
         break;
-      case "queryCarByKey":
+      case "queryByKey":
           const key = process.argv[3];
           await queryByKey(contract, key);
           break;
