@@ -75,9 +75,9 @@ const createAssetSimple = async (contract) => {
   try {
     let hash = generateRandomHash();
     // Enviando a transação "createCar"
-    await contract.submitTransaction(functions[4], `${hash}`, 'Toyota', 'Supra', 'Orange', 'Brian');
+    await contract.submitTransaction(functions[4], `${hash}`, 'Orange', 'Supra', 'Brian', '10');
 
-    console.log('Transação "'+functions[1]+'":'+hash+' enviada com sucesso.');
+    console.log('Transação "'+functions[4]+'":'+hash+' enviada com sucesso.');
 
     process.exit(0); // Encerrando o processo após a exibição da mensagem de sucesso
   } catch (error) {
@@ -97,8 +97,8 @@ const createAssetMultiple = async (contract, n) => {
     for (let i = 0; i < n; i++) {
       let hash = generateRandomHash();
       // Enviando a transação "createCar"
-      await contract.submitTransaction(functions[1], `${hash}`, 'Nissan', 'Skyline', 'Silver', 'Brian');
-      console.log(`${i + 1} Transação "'${functions[1]}" :${hash} enviada com sucesso.`);
+      await contract.submitTransaction(functions[4], `${hash}`, 'Nissan', 'Skyline', 'Silver', 'Brian');
+      console.log(`${i + 1} Transação "'${functions[4]}" :${hash} enviada com sucesso.`);
     }
 
     console.log(`Total de ${n} transações "createCar" enviadas com sucesso.`);
