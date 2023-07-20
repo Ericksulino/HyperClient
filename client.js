@@ -213,7 +213,7 @@ const main = async () =>{
       case "submitTransaction":
         const id = process.argv[3];
         const newOwner = process.argv[4];
-        submitTransaction(contract, id, newOwner);
+        submitTransactionById(contract, id, newOwner);
         break;
       case "endorseTransaction":
         submitTransactionEndorse(contract);
