@@ -97,7 +97,7 @@ const createAssetMultiple = async (contract, n) => {
     for (let i = 0; i < n; i++) {
       let hash = generateRandomHash();
       // Enviando a transação "createCar"
-      await contract.submitTransaction(functions[4], `${hash}`, 'Nissan', 'Skyline', 'Silver', 'Brian');
+      await contract.submitTransaction(functions[4], `${hash}`, 'Silver', '500', 'Brian','20');
       console.log(`${i + 1} Transação "'${functions[4]}" :${hash} enviada com sucesso.`);
     }
 
