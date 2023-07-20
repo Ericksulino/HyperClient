@@ -46,7 +46,7 @@ const submitTransactionEndorse = async (contract) => {
 
     const evaluationResult = await transaction.evaluate(...args);
     if (evaluationResult) {
-      console.log('Transação "createCar" avaliada com sucesso.');
+      console.log('Transação "'+functions[1]+'" avaliada com sucesso.');
     } else {
       throw new Error('Resposta da avaliação não disponível');
     }
@@ -54,7 +54,7 @@ const submitTransactionEndorse = async (contract) => {
     //transaction.setEndorsingPeers(['peer0.org1.example.com', 'peer1.org1.example.com']);
 
     await transaction.submit(...args);
-    console.log('Transação "createCar" "'+hash+'"submetida com sucesso.');
+    console.log('Transação "'+functions[1]+'" "'+hash+'"submetida com sucesso.');
 
     process.exit(0); // Encerrando o processo após a exibição da mensagem de sucesso
   } catch (error) {
@@ -69,7 +69,7 @@ const submitTransactionSimple = async (contract) => {
     // Enviando a transação "createCar"
     await contract.submitTransaction(functions[1], `${hash}`, 'Toyota', 'Supra', 'Orange', 'Brian');
 
-    console.log('Transação "createCar":'+hash+' enviada com sucesso.');
+    console.log('Transação "'+functions[1]+'":'+hash+' enviada com sucesso.');
 
     process.exit(0); // Encerrando o processo após a exibição da mensagem de sucesso
   } catch (error) {
@@ -90,7 +90,7 @@ const submitTransactionMultiple = async (contract, n) => {
       let hash = generateRandomHash();
       // Enviando a transação "createCar"
       await contract.submitTransaction(functions[1], `${hash}`, 'Nissan', 'Skyline', 'Silver', 'Brian');
-      console.log(`${i + 1} Transação "createCar" :${hash} enviada com sucesso.`);
+      console.log(`${i + 1} Transação "'${functions[1]}" :${hash} enviada com sucesso.`);
     }
 
     console.log(`Total de ${n} transações "createCar" enviadas com sucesso.`);
@@ -111,7 +111,7 @@ const queryAll = async (contract) => {
 
     // Verificando se a resposta está vazia
     if (response) {
-      console.log('Consulta "queryAllCars" executada com sucesso.');
+      console.log('Consulta "'+functions[1]+'" executada com sucesso.');
 
       // Pasando a resposta como JSON
       const cars = JSON.parse(response);
@@ -138,11 +138,11 @@ const queryByKey = async (contract, key) => {
     const response = responseBuffer.toString('utf8');
 
     if (response) {
-      console.log(`Carro com chave ${key} encontrado:`);
+      console.log(`Asset com chave ${key} encontrado:`);
       console.log(response);
       return response;
     } else {
-      console.log(`Nenhum carro encontrado com a chave ${key}.`);
+      console.log(`Nenhum asset encontrado com a chave ${key}.`);
       return null;
     }
   } catch (error) {
